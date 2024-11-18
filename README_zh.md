@@ -6,6 +6,9 @@
 
 CH32M030是基于青稞RISC-V3B内核设计的工业级电机微控制器。CH32M030内置OPA和CMP,支持组合成2组交流小信号放大解码器QII和2组差分输入电流采样ISP.内置USB PHY和PD PHY，支持USB Host主机和USB Device设备功能、PDUSB、Type-C快充功能、BC1.2及DCP/CDP等多种高压充电协议；内置4对N型功率管栅极预驱，提供高压I/O；内置可编程灌电流模块；提供DMA控制器、12位模数转换ADC、多组定时器、UART串口、I2C、SPI等外设资源，提供过压保护和过温保护。
 
+### 系统框图
+![Alt](image/frame.png)
+
 ### 产品特点
 
 - 青稞32位RISC-V3B内核
