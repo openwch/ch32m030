@@ -7,7 +7,7 @@ EN | [中文](README_zh.md)
 CH32M030 is based on barley RISC-V3B core design of industrial-grade motor microcontroller.CH32M030 built-in OPA and CMP, support the combination of 2 groups of AC small-signal amplification decoder QII and 2 groups of differential input current sampling ISP.Built-in USB PHY and PD PHY, support for USB Host and USB Device device functions, PDUSB, Type-C fast charging function, BC1.2 and DCP/CDP and other high-voltage charging protocols; built-in 4 pairs of N-type power tubes gate pre-driven to provide high-voltage I/O; built-in programmable current-flooding module; to provide DMA controller, 12-bit analog-to-digital converter ADC, multi-group timer, UART serial port, I2C, SPI, and other peripheral resources, to provide over-voltage protection and over-temperature protection. Over-voltage protection and over-temperature protection are provided.
 
 ### System Block Diagram
-![[frame.png]]
+![Alt](image/frame.png)
 
 ### Features
 
