@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT  *******************************
  * File Name          : ch32m030_flash.c
  * Author             : WCH
- * Version            : V1.0.0
- * Date               : 2024/09/01
+ * Version            : V1.0.1
+ * Date               : 2024/11/29
  * Description        : This file provides all the FLASH firmware functions.
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -162,7 +162,7 @@ FLASH_Status FLASH_ErasePage(uint32_t Page_Address)
 
         FLASH->CTLR &= CR_PER_Reset;
     }
-    *(__IO uint32_t*)0x40022034 = *(__IO uint32_t*)(0x1FFFF3FC);
+    *(__IO uint32_t*)0x40022034 = *(__IO uint32_t*)((Page_Address & 0xFFFFFFFC) ^ 0x00000100);
     return status;
 }
 
@@ -246,6 +246,7 @@ FLASH_Status FLASH_EraseOptionBytes(void)
 
         FLASH_Lock();
     }
+	*(__IO uint32_t*)0x40022034 = *(__IO uint32_t*)((OB_BASE & 0xFFFFFFFC) ^ 0x00000100);
     return status;
 }
 
@@ -715,7 +716,7 @@ void FLASH_BufLoad(uint32_t Address, uint32_t Data0, uint32_t Data1)
         while(FLASH->STATR & SR_BSY)
             ;
         FLASH->CTLR &= ~CR_PAGE_PG;
-        *(__IO uint32_t*)0x40022034 = *(__IO uint32_t*)(0x1FFFF3FC);
+        *(__IO uint32_t*)0x40022034 = *(__IO uint32_t*)((Address & 0xFFFFFFFC) ^ 0x00000100);
     }
 }
 
@@ -738,7 +739,7 @@ void FLASH_ErasePage_Fast(uint32_t Page_Address)
         while(FLASH->STATR & SR_BSY)
             ;
         FLASH->CTLR &= ~CR_PAGE_ER;
-        *(__IO uint32_t*)0x40022034 = *(__IO uint32_t*)(0x1FFFF3FC);
+        *(__IO uint32_t*)0x40022034 = *(__IO uint32_t*)((Page_Address & 0xFFFFFFFC) ^ 0x00000100);
     }
 }
 
@@ -761,7 +762,7 @@ void FLASH_ProgramPage_Fast(uint32_t Page_Address)
         while(FLASH->STATR & SR_BSY)
             ;
         FLASH->CTLR &= ~CR_PAGE_PG;
-        *(__IO uint32_t*)0x40022034 = *(__IO uint32_t*)(0x1FFFF3FC);
+        *(__IO uint32_t*)0x40022034 = *(__IO uint32_t*)((Page_Address & 0xFFFFFFFC) ^ 0x00000100);
     }
 }
 
@@ -794,7 +795,7 @@ static void ROM_ERASE(uint32_t StartAddr, uint32_t Cnt, uint32_t Erase_Size)
         while(FLASH->STATR & SR_BSY)
             ;
 
-        *(__IO uint32_t*)0x40022034 = *(__IO uint32_t*)(0x1FFFF3FC);
+        *(__IO uint32_t*)0x40022034 = *(__IO uint32_t*)((StartAddr & 0xFFFFFFFC) ^ 0x00000100);
 
         if(Erase_Size == Size_1KB)
         {
@@ -969,7 +970,7 @@ FLASH_Status FLASH_ROM_WRITE( uint32_t StartAddr, uint32_t *pbuf, uint32_t Lengt
             FLASH->CTLR |= CR_BUF_LOAD;
             while(FLASH->STATR & SR_BSY)
                 ;
-            *(__IO uint32_t*)0x40022034 = *(__IO uint32_t*)(0x1FFFF3FC);
+            *(__IO uint32_t*)0x40022034 = *(__IO uint32_t*)((StartAddr & 0xFFFFFFFC) ^ 0x00000100);
             StartAddr += 8;
             size -= 1;
         }
@@ -979,7 +980,7 @@ FLASH_Status FLASH_ROM_WRITE( uint32_t StartAddr, uint32_t *pbuf, uint32_t Lengt
         while(FLASH->STATR & SR_BSY)
             ;
         FLASH->CTLR &= ~CR_PAGE_PG;
-        *(__IO uint32_t*)0x40022034 = *(__IO uint32_t*)(0x1FFFF3FC);
+        *(__IO uint32_t*)0x40022034 = *(__IO uint32_t*)((adr & 0xFFFFFFFC) ^ 0x00000100);
         adr += 128;
     }while(--i);
 

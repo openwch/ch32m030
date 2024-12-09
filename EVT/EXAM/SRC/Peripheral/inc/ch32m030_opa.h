@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT  *******************************
  * File Name          : ch32m030_opa.h
  * Author             : WCH
- * Version            : V1.0.0
- * Date               : 2024/09/01
+ * Version            : V1.0.1
+ * Date               : 2024/12/02
  * Description        : This file contains all the functions prototypes for the
  *                      OPA firmware library.
  *********************************************************************************
@@ -471,7 +471,8 @@ FlagStatus   CMP_GetOutStatus(uint32_t CMP_OUT);
 FlagStatus   CMP_GetFlagStatus(uint32_t CMP_FLAG);
 void         CMP_ClearFlag( uint32_t CMP_FLAG);
 void         QII_OutToTIM3Cap_Cmd(FunctionalState NewState);
-
+void         ISP_OutToADC_CMD(OPA_ISP_Num_TypeDef ISPx,FunctionalState NewState);
+void         ISP_QDET_CMD(OPA_ISP_Num_TypeDef ISPx,FunctionalState NewState);
 
 #ifdef __cplusplus
 }
