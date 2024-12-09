@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT  *******************************
  * File Name          : ch32m030.h
  * Author             : WCH
- * Version            : V1.0.0
- * Date               : 2024/09/01
+ * Version            : V1.0.1
+ * Date               : 2024/12/00
  * Description        : CH32M030 Device Peripheral Access Layer Header File.
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -26,7 +26,7 @@ extern "C" {
 
 /* CH32M030 Standard Peripheral Library version number */
 #define __CH32M030_STDPERIPH_VERSION_MAIN   (0x01) /* [15:8] main version */
-#define __CH32M030_STDPERIPH_VERSION_SUB    (0x00) /* [7:0] sub version */
+#define __CH32M030_STDPERIPH_VERSION_SUB    (0x01) /* [7:0] sub version */
 #define __CH32M030_STDPERIPH_VERSION        ( (__CH32M030_STDPERIPH_VERSION_MAIN << 8)\
                                              |(__CH32M030_STDPERIPH_VERSION_SUB << 0))
 

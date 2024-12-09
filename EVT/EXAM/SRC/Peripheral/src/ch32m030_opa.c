@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT  *******************************
  * File Name          : ch32m030_opa.c
  * Author             : WCH
- * Version            : V1.0.0
- * Date               : 2024/09/01
+ * Version            : V1.0.1
+ * Date               : 2024/12/02
  * Description        : This file provides all the OPA firmware functions.
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -254,7 +254,6 @@ void OPA2_StructInit(OPA2_InitTypeDef *OPA2_InitStruct)
     OPA2_InitStruct->QII2_SESEL = OPA2_QII2_SESEL_MODE_QII;
     OPA2_InitStruct->QII2_AVSEL = OPA2_QII2_AVSEL_5;
 }
-
 
 /*********************************************************************
  * @fn      CMP1_Init
@@ -540,5 +539,55 @@ void QII_OutToTIM3Cap_Cmd(FunctionalState NewState)
     else
     {
         OPA->CMP_CTLR &= ~(1<<18);
+    }
+}
+
+/*********************************************************************
+ * @fn      ISP_OutToADC_CMD
+ *
+ * @brief   Enables or disables the ISP module output to ADC channel.
+ *
+ * @param   ISPx - the specified OPA3_ISP1 or OPA4_ISP2.
+ *          NewState - ENABLE or DISABLE.
+ *
+ * @return  none
+ */
+void ISP_OutToADC_CMD(OPA_ISP_Num_TypeDef ISPx,FunctionalState NewState)
+{
+    uint8_t tmp;
+    tmp = 16*ISPx + 5;
+
+    if(NewState != DISABLE)
+    {
+        OPA->ISP_CTLR |= (1 << tmp);
+    }
+    else
+    {
+        OPA->ISP_CTLR &= ~(1 << tmp);
+    }
+}
+
+/*********************************************************************
+ * @fn      ISP_QDET_CMD
+ *
+ * @brief   Enables or disables the ISP module Q value detection.
+ *
+ * @param   ISPx - the specified OPA3_ISP1 or OPA4_ISP2.
+ *          NewState - ENABLE or DISABLE.
+ *
+ * @return  none
+ */
+void ISP_QDET_CMD(OPA_ISP_Num_TypeDef ISPx,FunctionalState NewState)
+{
+    uint8_t tmp;
+    tmp = 16*ISPx + 6;
+
+    if(NewState != DISABLE)
+    {
+        OPA->ISP_CTLR |= (1 << tmp);
+    }
+    else
+    {
+        OPA->ISP_CTLR &= ~(1 << tmp);
     }
 }
