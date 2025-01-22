@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT *******************************
  * File Name          : main.c
  * Author             : WCH
- * Version            : V1.0.0
- * Date               : 2024/09/01
+ * Version            : V1.0.1
+ * Date               : 2024/12/24
  * Description        : Main program body.
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -115,7 +115,6 @@ void TIM2_Dead_Time_Init(u16 arr, u16 psc, u16 ccp)
 
     RCC_PB2PeriphClockCmd( RCC_PB2Periph_GPIOA, ENABLE );
     RCC_PB1PeriphClockCmd( RCC_PB1Periph_TIM2 ,ENABLE );
-    GPIO_PinRemapConfig(GPIO_FullRemap_TIM2, ENABLE);
 
     GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;//CH1
     GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;

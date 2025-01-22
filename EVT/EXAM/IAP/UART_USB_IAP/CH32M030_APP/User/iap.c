@@ -15,12 +15,14 @@
 
 /******************************************************************************/
 
+#define USBD_DATA_SIZE   64
 iapfun jump2app;
 u32 Program_addr = FLASH_Base;
 u32 Verify_addr = FLASH_Base;
 u32 User_APP_Addr_offset = 0x5000;
 u8 Verify_Star_flag = 0;
 u8 Fast_Program_Buf[390];
+u32 Program_Buf[32];
 u32 CodeLen = 0;
 u8 End_Flag = 0;
 u8 EP2_Rx_Buffer[USBD_DATA_SIZE+4];
@@ -47,9 +49,31 @@ void CH32_IAP_Program(u32 adr, u32* buf)
 }
 
 /*********************************************************************
+ * @fn      Program_Buf_Modify
+ *
+ * @brief   Program_Buf Modify
+ *
+ * @return  none
+ */
+void Program_Buf_Modify(void)
+{
+    for(int i = 0; i < 32; i++)
+    {
+        if(i != 31)
+        {
+            Program_Buf[i] = *(uint32_t*)((CalAddr & 0xFFFFFF80)+4*i);
+        }
+        else
+        {
+            Program_Buf[i] = (uint32_t)CheckNum;
+        }
+    }
+}
+
+/*********************************************************************
  * @fn      RecData_Deal
  *
- * @brief   USB deal data
+ * @brief   UART-USB deal data (deal jump IAP command)
  *
  * @return  ERR_ERROR - ERROR
  *          ERR_SUCCESS - SUCCESS
@@ -57,75 +81,32 @@ void CH32_IAP_Program(u32 adr, u32* buf)
  */
 u8 RecData_Deal(void)
 {
-     u8 i, s, Lenth;
-
-     Lenth = isp_cmd_t->other.buf[1];
+     u8 s;
 
      switch ( isp_cmd_t->other.buf[0]) {
      case CMD_IAP_ERASE:
-         FLASH_Unlock_Fast();
-         s = ERR_SUCCESS;
+         s = ERR_ERROR;
          break;
 
      case CMD_IAP_PROM:
-         for (i = 0; i < Lenth; i++) {
-             Fast_Program_Buf[CodeLen + i] = isp_cmd_t->program.data[i];
-         }
-         CodeLen += Lenth;
-         if (CodeLen >= 128) {
-             FLASH_Unlock_Fast();
-             FLASH_ErasePage_Fast(Program_addr);
-             CH32_IAP_Program(Program_addr, (u32*) Fast_Program_Buf);
-             CodeLen -= 128;
-             for (i = 0; i < CodeLen; i++) {
-                 Fast_Program_Buf[i] = Fast_Program_Buf[128 + i];
-             }
-
-             Program_addr += 0x80;
-
-         }
-         s = ERR_SUCCESS;
+         s = ERR_ERROR;
          break;
 
      case CMD_IAP_VERIFY:
-         if (Verify_Star_flag == 0) {
-             Verify_Star_flag = 1;
-            if(CodeLen != 0)
-            {
-                for (i = 0; i < (128 - CodeLen); i++) {
-                    Fast_Program_Buf[CodeLen + i] = 0xff;
-                }
-
-                FLASH_ErasePage_Fast(Program_addr);
-                CH32_IAP_Program(Program_addr, (u32*) Fast_Program_Buf);
-                CodeLen = 0;             
-            }
-         }
-
-         s = ERR_SUCCESS;
-         for (i = 0; i < Lenth; i++) {
-             if (isp_cmd_t->verify.data[i] != *(u8*) (Verify_addr + i)) {
-                 s = ERR_ERROR;
-                 break;
-             }
-         }
-
-         Verify_addr += Lenth;
-
+         s = ERR_ERROR;
          break;
 
      case CMD_IAP_END:
-         Verify_Star_flag = 0;
-         End_Flag = 1;
-         Program_addr = FLASH_Base;
-         Verify_addr = FLASH_Base;
-         FLASH_ErasePage_Fast(CalAddr & 0xFFFFFF80);
-         FLASH->CTLR |= ((uint32_t)0x00008000);  //FLASH_Lock_Fast
-         FLASH->CTLR |= ((uint32_t)0x00000080);  //FLASH_Lock
-         s = ERR_End;
+         s = ERR_ERROR;
          break;
 
      case CMD_JUMP_IAP:
+         FLASH_Unlock_Fast();
+         Program_Buf_Modify();
+         FLASH_ErasePage_Fast(CalAddr & 0xFFFFFF80);
+         CH32_IAP_Program(CalAddr & 0xFFFFFF80,(u32*)Program_Buf);
+         FLASH->CTLR |= ((uint32_t)0x00008000);
+         FLASH->CTLR |= ((uint32_t)0x00000080);
 
          s = ERR_SUCCESS;
          break;
@@ -136,154 +117,6 @@ u8 RecData_Deal(void)
      }
 
      return s;
-}
-
-/*********************************************************************
- * @fn      UART_RecData_Deal
- *
- * @brief   UART deal data
- *
- * @return  ERR_ERROR - ERROR
- *          ERR_SUCCESS - SUCCESS
- *          ERR_End - End
- */
-u8 UART_RecData_Deal(void)
-{
-     u8 i, s, Lenth;
-
-     Lenth = isp_cmd_t->UART.Len;
-
-     switch ( isp_cmd_t->UART.Cmd) {
-     case CMD_IAP_ERASE:
-         FLASH_Unlock_Fast();
-         s = ERR_SUCCESS;
-         break;
-
-     case CMD_IAP_PROM:
-         for (i = 0; i < Lenth; i++) {
-             Fast_Program_Buf[CodeLen + i] = isp_cmd_t->UART.data[i];
-         }
-         CodeLen += Lenth;
-         if (CodeLen >= 128) {
-             FLASH_Unlock_Fast();
-             FLASH_ErasePage_Fast(Program_addr);
-             CH32_IAP_Program(Program_addr, (u32*) Fast_Program_Buf);
-             CodeLen -= 128;
-             for (i = 0; i < CodeLen; i++) {
-                 Fast_Program_Buf[i] = Fast_Program_Buf[128 + i];
-             }
-
-             Program_addr += 0x80;
-
-         }
-         s = ERR_SUCCESS;
-         break;
-
-     case CMD_IAP_VERIFY:
-         if (Verify_Star_flag == 0) {
-             Verify_Star_flag = 1;
-            if(CodeLen != 0)
-            {
-                for (i = 0; i < (128 - CodeLen); i++) {
-                    Fast_Program_Buf[CodeLen + i] = 0xff;
-                }
-
-                FLASH_ErasePage_Fast(Program_addr);
-                CH32_IAP_Program(Program_addr, (u32*) Fast_Program_Buf);
-                CodeLen = 0;
-            }
-         }
-
-         s = ERR_SUCCESS;
-         for (i = 0; i < Lenth; i++) {
-             if (isp_cmd_t->UART.data[i] != *(u8*) (Verify_addr + i)) {
-                 s = ERR_ERROR;
-                 break;
-             }
-         }
-
-         Verify_addr += Lenth;
-
-         break;
-
-     case CMD_IAP_END:
-         Verify_Star_flag = 0;
-         End_Flag = 1;
-         Program_addr = FLASH_Base;
-         Verify_addr = FLASH_Base;
-         FLASH_ErasePage_Fast(CalAddr & 0xFFFFFF80);
-         FLASH->CTLR |= ((uint32_t)0x00008000);  //FLASH_Lock_Fast
-         FLASH->CTLR |= ((uint32_t)0x00000080);  //FLASH_Lock
-         s = ERR_End;
-         break;
-
-     case CMD_JUMP_IAP:
-
-         s = ERR_SUCCESS;
-         break;
-
-     default:
-         s = ERR_ERROR;
-         break;
-     }
-
-     return s;
-}
-
-/*********************************************************************
- * @fn      GPIO_Cfg_init
- *
- * @brief   GPIO init
- *
- * @return  none
- */
-void GPIO_Cfg_init(void)
-{
-    GPIO_InitTypeDef GPIO_InitStructure = {0};
-
-    RCC_PB2PeriphClockCmd(RCC_PB2Periph_GPIOB, ENABLE);
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
-    GPIO_Init(GPIOB, &GPIO_InitStructure);
-}
-
-/*********************************************************************
- * @fn      GPIO_Cfg_Float
- *
- * @brief   GPIO float
- *
- * @return  none
- */
-void GPIO_Cfg_Float(void)
-{
-    GPIO_DeInit(GPIOA);
-    GPIO_DeInit(GPIOB);
-    GPIO_DeInit(GPIOC);
-    GPIO_AFIODeInit();
-    RCC_PB2PeriphClockCmd(RCC_PB2Periph_GPIOA | RCC_PB2Periph_GPIOB | RCC_PB2Periph_GPIOC, DISABLE);
-}
-
-/*********************************************************************
- * @fn      PB4_Check
- *
- * @brief   Check PB4 state
- *
- * @return  1 - IAP
- *          0 - APP
- */
-u8 PB4_Check(void)
-{
-    u8 i, cnt=0;
-
-    GPIO_Cfg_init();
-
-    for(i=0; i<10; i++){
-        if(GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_4)==0) cnt++;
-        Delay_Ms(5);
-    }
-
-    if(cnt>6) return 0;
-    else return 1;
 }
 
 /*********************************************************************
@@ -320,26 +153,7 @@ void USART1_CFG(u32 baudrate)
     USART_Init(USART1, &USART_InitStructure);
     USART_Cmd(USART1, ENABLE);
 }
-/*********************************************************************
- * @fn      UART1_SendMultiyData
- *
- * @brief   Deal device Endpoint 3 OUT.
- *
- * @param   l: Data length.
- *
- * @return  none
- */
-void UART1_SendMultiyData(u8* pbuf, u8 num)
-{
-    u8 i = 0;
 
-    while(i<num)
-    {
-        while(USART_GetFlagStatus(USART1, USART_FLAG_TC) == RESET);
-        USART_SendData(USART1, pbuf[i]);
-        i++;
-    }
-}
 /*********************************************************************
  * @fn      UART1_SendMultiyData
  *
@@ -416,7 +230,7 @@ void UART_Rx_Deal(void)
                     {
                         if (Uart1_Rx() == Uart_Sync_Head1)
                         {
-                            s = UART_RecData_Deal();
+                            s = RecData_Deal();
 
                             if (s != ERR_End)
                             {
@@ -442,18 +256,3 @@ void UART_Rx_Deal(void)
     }
 }
 
-void SW_Handler(void) __attribute__((interrupt("WCH-Interrupt-fast")));
-
-/*********************************************************************
- * @fn      SW_Handler
- *
- * @brief   This function handles Software exception.
- *
- * @return  none
- */
-void SW_Handler(void) {
-    __asm("li  a6, 0x5000");
-    __asm("jr  a6");
-
-    while(1);
-}

@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT *******************************
  * File Name          : main.c
  * Author             : WCH
- * Version            : V1.0.0
- * Date               : 2024/09/01
+ * Version            : V1.0.1
+ * Date               : 2025/01/09
  * Description        : Main program body.
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -47,10 +47,12 @@ void ADC_Function_Init(void)
     ADC_InitStructure.ADC_Mode = ADC_Mode_Independent;
     ADC_InitStructure.ADC_ScanConvMode = DISABLE;
     ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;
-    ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigInjecConv_T1_CC5;
+    ADC_InitStructure.ADC_ExternalTrigConv = ADC_ExternalTrigConv_None;
     ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;
     ADC_InitStructure.ADC_NbrOfChannel = 1;
     ADC_Init(ADC1, &ADC_InitStructure);
+
+    ADC_ExternalTrigInjectedConvConfig(ADC1,ADC_ExternalTrigInjecConv_T1_CC5);
 
     ADC_InjectedSequencerLengthConfig(ADC1, 1);
     ADC_InjectedChannelConfig(ADC1, ADC_Channel_2, 1, ADC_SampleTime_5Cycles5);
@@ -81,14 +83,7 @@ void TIM1_PWM_In(u16 arr, u16 psc, u16 ccp)
     GPIO_InitTypeDef        GPIO_InitStructure = {0};
     TIM_TimeBaseInitTypeDef TIM_TimeBaseInitStructure = {0};
 
-    RCC_PB2PeriphClockCmd(RCC_PB2Periph_GPIOB|RCC_PB2Periph_TIM1|RCC_PB2Periph_AFIO, ENABLE);
-    RCC_PB1PeriphClockCmd(RCC_PB1Periph_TIM3|RCC_PB1Periph_TIM2, ENABLE);
-    AFIO->PCFR1|=(1<<12);
-    /* TIM1_CH1 */
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
-    GPIO_InitStructure.GPIO_Speed = GPIO_Speed_30MHz;
-    GPIO_Init(GPIOB, &GPIO_InitStructure);
+    RCC_PB2PeriphClockCmd(RCC_PB2Periph_GPIOB|RCC_PB2Periph_TIM1, ENABLE);
 
     TIM_TimeBaseInitStructure.TIM_Period = arr;
     TIM_TimeBaseInitStructure.TIM_Prescaler = psc;
@@ -97,7 +92,7 @@ void TIM1_PWM_In(u16 arr, u16 psc, u16 ccp)
     TIM_TimeBaseInit( TIM1, &TIM_TimeBaseInitStructure);
 
     TIM_SetCompare5(TIM1, ccp);
-    TIM_OC5PolarityConfig(TIM1, TIM_OCPolarity_High);
+    TIM_OC5PolarityConfig(TIM1, TIM_OCPolarity_Low);
 
     TIM_CtrlPWMOutputs(TIM1, ENABLE );
     TIM_OC5PreloadConfig( TIM1, TIM_OCPreload_Disable );

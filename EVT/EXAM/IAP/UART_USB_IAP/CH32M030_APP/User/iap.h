@@ -75,13 +75,9 @@ extern u8 EP2_Rx_Buffer[USBD_DATA_SIZE+4];
 extern u8 End_Flag;
 
 u8 RecData_Deal(void);
-void GPIO_Cfg_init(void);
-void GPIO_Cfg_Float(void);
-u8 PB4_Check(void);
 void USART1_CFG(u32 baudrate);
 
 void UART_Rx_Deal(void);
-u8 UART_RecData_Deal(void);
 
 #endif
 

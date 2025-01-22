@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT *******************************
  * File Name          : main.c
  * Author             : WCH
- * Version            : V1.0.0
- * Date               : 2024/09/01
+ * Version            : V1.0.1
+ * Date               : 2025/01/08
  * Description        : Main program body.
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -138,10 +138,10 @@ int main (void) {
 
     long diff = (long)Meas_Frq - (long)HSI_VALUE;
     unsigned long tmpreg = (RCC->CTLR >> 3) & 0x1f;
-    printf("%d\r\n",tmpreg);
-    printf("%d\r\n",(long)diff );
+    printf("%ld\r\n",tmpreg);
+    printf("%ld\r\n",(long)diff );
     tmpreg -= (diff / ADJUST_STEP);
-    printf("%d\r\n",tmpreg);
+    printf("%ld\r\n",tmpreg);
     RCC_AdjustHSICalibrationValue (tmpreg);
 
     while (1) {

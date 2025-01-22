@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT *******************************
  * File Name          : main.c
  * Author             : WCH
- * Version            : V1.0.0
- * Date               : 2024/09/01
+ * Version            : V1.0.1
+ * Date               : 2024/12/24
  * Description        : Main program body.
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -59,7 +59,7 @@ void CMP_Init(void)
     CMP3_InitStruct.CMP3_CH_SW_NUM = CMP3_CH_SW_NUM_4;
     CMP3_InitStruct.CMP3_PT_IO_SEL = CMP3_PT_IO_PB4;
     CMP3_InitStruct.CMP3_BK_EN = CMP3_BK_EN_TIM1BKIN_OFF;
-    CMP3_InitStruct.CMP3_TRG_GATE = CMP3_INT_EN_ON;
+    CMP3_InitStruct.CMP3_TRG_GATE = CMP3_TRG_GATE_ON;
     CMP3_InitStruct.CMP3_TRG_SRC = CMP3_TRG_SRC_T1_CC4;
     CMP3_Init(&CMP3_InitStruct);
 
@@ -155,12 +155,6 @@ void OPA_IRQHandler()
 
         printf("CH3 HIGH\r\n");
         CMP_ClearFlag(CMP3_FLAG_CHOUT3);
-    }
-    if(CMP_GetFlagStatus( CMP2_FLAG_OUTHIGH) )
-    {
-
-        printf("CH3 HIGH\r\n");
-        CMP_ClearFlag(CMP2_FLAG_OUTHIGH);
     }
 
 }

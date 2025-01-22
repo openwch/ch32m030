@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT *******************************
  * File Name          : main.c
  * Author             : WCH
- * Version            : V1.0.1
- * Date               : 2024/11/29
+ * Version            : V1.0.2
+ * Date               : 2025/01/09
  * Description        : Main program body.
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -56,7 +56,7 @@ void ADC_Function_Init(void)
     ADC_Cmd(ADC1, ENABLE);
     ADC_MovingAverageCmd(ADC1,ENABLE);
     ADC_MovingAverageWindowSizeConfig(ADC1,ADC_MovingWindow_Size_32);
-    ADC_AverageValueThresholdsConfig(ADC1,3500,2000);
+    ADC_AverageValueThresholdsConfig(ADC1,200,200);
 
     NVIC_SetPriority(ADC_IRQn, 1<<6);
     ADC_ITConfig(ADC1, ADC_IT_AVG_OV, ENABLE);
@@ -150,11 +150,9 @@ void ADC_IRQHandler(void) __attribute__((interrupt("WCH-Interrupt-fast")));
  */
 void ADC_IRQHandler(void)
 {
-
-    if(ADC_GetFlagStatus( ADC1, ADC_IT_AVG_OV)){
+    if(ADC_GetITStatus(ADC1, ADC_IT_AVG_OV)){
         printf( "Enter ADC_AVG_high Interrupt\r\n" );
     }
-    ADC_ClearFlag( ADC1, ADC_IT_AVG_OV);
-
+    ADC_ClearITPendingBit(ADC1, ADC_IT_AVG_OV);
 }
 

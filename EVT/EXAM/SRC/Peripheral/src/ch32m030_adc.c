@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT  *******************************
  * File Name          : ch32m030_adc.c
  * Author             : WCH
- * Version            : V1.0.0
- * Date               : 2024/09/01
+ * Version            : V1.0.1
+ * Date               : 2024/12/24
  * Description        : This file provides all the ADC firmware functions.
 *********************************************************************************
 * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -241,7 +241,7 @@ void ADC_DMACmd(ADC_TypeDef *ADCx, FunctionalState NewState)
  *            ADC_IT_AWD_OV - Analog watchdog overflow interrupt mask.
  *            ADC_IT_AWD_DN - Analog watchdog underflow interrupt mask.
  *            ADC_IT_AVG_OV - Moving average overflow interrupt mask.
- *            ADC_IT_AVG_OV - Moving average underflow interrupt mask.
+ *            ADC_IT_AVG_DN - Moving average underflow interrupt mask.
  *          NewState - ENABLE or DISABLE.
  *
  * @return  none
@@ -1121,7 +1121,7 @@ void ADC_ClearFlag(ADC_TypeDef *ADCx, uint32_t ADC_FLAG)
  *            ADC_IT_AWD_OV - Analog watchdog overflow interrupt mask.
  *            ADC_IT_AWD_DN - Analog watchdog underflow interrupt mask.
  *            ADC_IT_AVG_OV - Moving average overflow interrupt mask.
- *            ADC_IT_AVG_OV - Moving average underflow interrupt mask.
+ *            ADC_IT_AVG_DN - Moving average underflow interrupt mask.
  *
  * @return  ITStatus: SET or RESET.
  */
@@ -1177,7 +1177,7 @@ ITStatus ADC_GetITStatus(ADC_TypeDef *ADCx, uint32_t ADC_IT)
  *            ADC_IT_AWD_OV - Analog watchdog overflow interrupt mask.
  *            ADC_IT_AWD_DN - Analog watchdog underflow interrupt mask.
  *            ADC_IT_AVG_OV - Moving average overflow interrupt mask.
- *            ADC_IT_AVG_OV - Moving average underflow interrupt mask.
+ *            ADC_IT_AVG_DN - Moving average underflow interrupt mask.
  *
  * @return  none
  */

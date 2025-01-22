@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT  *******************************
  * File Name          : ch32m030_adc.h
  * Author             : WCH
- * Version            : V1.0.0
- * Date               : 2024/09/01
+ * Version            : V1.0.1
+ * Date               : 2024/12/25
  * Description        : This file contains all the functions prototypes for the
  *                      ADC firmware library.
  *********************************************************************************
@@ -60,6 +60,7 @@ typedef struct
 #define ADC_ExternalTrigConv_T3_CC1                    ((uint32_t)0x00070000)
 #define ADC_ExternalTrigConv_T3_CC2                    ((uint32_t)0x00080000)
 #define ADC_ExternalTrigConv_Ext_PA14_PB6              ((uint32_t)0x00090000)
+#define ADC_ExternalTrigConv_T1_CC4_CC5                ((uint32_t)0x000A0000)
 
 /* ADC_data_align */
 #define ADC_DataAlign_Right                            ((uint32_t)0x00000000)
@@ -103,6 +104,7 @@ typedef struct
 #define ADC_ExternalTrigInjecConv_T2_CC4               ((uint32_t)0x00003000)
 #define ADC_ExternalTrigInjecConv_T3_CC1               ((uint32_t)0x00003800)
 #define ADC_ExternalTrigInjecConv_T3_CC2               ((uint32_t)0x00004000)
+#define ADC_ExternalTrigInjecConv_T1_CC4_CC5           ((uint32_t)0x00004800)
 #define ADC_ExternalTrigInjecConv_Ext_PA14_PB6         ((uint32_t)0x00005000)
 
 /* ADC_injected_channel_selection */

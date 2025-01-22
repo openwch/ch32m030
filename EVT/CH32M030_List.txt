@@ -1,5 +1,5 @@
 
-南京沁恒微电子股份有限公司 2024.11
+南京沁恒微电子股份有限公司 2025.01
 最新资料请到我们的网站上查询
 https://wch.cn
 
@@ -50,6 +50,9 @@ https://wch.cn
   |      |      |      |      |-- I2C_7bit_Interrupt_Mode：使用中断进行收发例程 
   |      |      |      |-- IAP
   |      |      |      |      |-- UART_USB_IAP：IAP升级例程-内置Hex转Bin工具和IAP升级工具
+  |      |      |      |-- INT
+  |      |      |      |      |-- Interrupt_VTF：使用VTF IRQ中断例程  
+  |      |      |      |      |-- VectorInRAM：中断向量表在RAM的中断例程
   |      |      |      |-- OPA
   |      |      |      |      |-- CMP：比较器例程
   |      |      |      |      |-- CMP_IRQ：CMP中断例程
@@ -107,11 +110,11 @@ https://wch.cn
   |      |      |      |      |      |-- DEVICE
   |      |      |      |      |      |      |-- CH372：模拟自定义USB设备（CH372设备），端点1，3，5下传，2，4, 6上传，端点1下传的数据从端点2上传，不取反，端点3, 5下传的数据从端点4, 6上传，取反。
   |      |      |      |      |      |      |-- Compatibility_HID：模拟HID设备，数据通过串口上下传。
-  |      |      |      |      |      |      |-- CompositeKM：模拟键盘和鼠标，使用IO模拟按键，同时模拟数据可以通过串口2上传。
-  |      |      |      |      |      |      |-- CompositeKM_LowSpeed：模拟低速键盘和鼠标，使用IO模拟按键，同时模拟数据可以通过串口2上传。
+  |      |      |      |      |      |      |-- CompositeKM：模拟键盘和鼠标，使用IO模拟按键，同时模拟数据可以通过串口1上传。
+  |      |      |      |      |      |      |-- CompositeKM_LowSpeed：模拟低速键盘和鼠标，使用IO模拟按键，同时模拟数据可以通过串口1上传。
   |      |      |      |      |      |      |-- MSC_U-Disk: 模拟简单U盘，可选使用片内Flash或外部SPI-Flash
-  |      |      |      |      |      |      |-- SimulateCDC：模拟一个CDC串口，使用串口2收发。
-  |      |      |      |      |      |      |-- SimulateCDC-HID：模拟一个CDC串口，使用串口2收发,HID中断端点下发数据取反上传。
+  |      |      |      |      |      |      |-- SimulateCDC：模拟一个CDC串口，使用串口1收发。
+  |      |      |      |      |      |      |-- SimulateCDC-HID：模拟一个CDC串口，使用串口1收发,HID中断端点下发数据取反上传。
   |      |      |      |      |      |      |-- MSC_CD-ROM: 模拟CDROM例程，需要外挂SPI-Flash
   |      |      |      |      |      |-- HOST_IAP
   |      |      |      |      |      |      |-- APP: 与HOST_IAP配套使用的APP，工程修改了程序起始位置，编译后需自行将文件转化为bin文件并重命名为APP.bin
