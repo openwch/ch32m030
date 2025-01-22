@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT *******************************
  * File Name          : main.c
  * Author             : WCH
- * Version            : V1.0.0
- * Date               : 2024/09/01
+ * Version            : V1.0.1
+ * Date               : 2025/01/08
  * Description        : Main program body.
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -105,11 +105,10 @@ void ADC_Function_Init(void)
  *
  * @param   arr - the period value.
  *          psc - the prescaler value.
- *          ccp - the pulse value.
  *
  * @return  none
  */
-void TIM1_ADCCap_Init( u16 arr, u16 psc, u16 ccp )
+void TIM1_ADCCap_Init( u16 arr, u16 psc)
 {
     GPIO_InitTypeDef GPIO_InitStructure={0};
     TIM_ICInitTypeDef TIM_ICInitStructure={0};
@@ -163,7 +162,7 @@ int main(void)
     printf("SystemClk:%d\r\n", SystemCoreClock);
     printf( "ChipID:%08x\r\n", DBGMCU_GetCHIPID() );
     ADC_Function_Init();
-    TIM1_ADCCap_Init( 10000, 7200, 5000);
+    TIM1_ADCCap_Init( 10000, 7200);
     ADC_SoftwareStartConvCmd(ADC1, ENABLE);
 
     while(1);

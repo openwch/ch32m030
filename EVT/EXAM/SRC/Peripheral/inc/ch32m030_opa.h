@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT  *******************************
  * File Name          : ch32m030_opa.h
  * Author             : WCH
- * Version            : V1.0.1
- * Date               : 2024/12/02
+ * Version            : V1.0.2
+ * Date               : 2025/01/13
  * Description        : This file contains all the functions prototypes for the
  *                      OPA firmware library.
  *********************************************************************************
@@ -219,7 +219,6 @@ typedef enum
     CMP3_TRG_GATE_OFF
 } CMP3_TRG_GATE_TypeDef;
 
-
 /* CMP3_COM_MODE_enumeration */
 typedef enum
 {
@@ -342,14 +341,12 @@ typedef enum
     CMP3_RMID_EN_ON
 } CMP3_RMID_EN_TypeDef;
 
-
 /* CMP3_Analog_output_to_IO_enumeration */
 typedef enum
 {
     CMP3_AT_IO_OFF = 0,
     CMP3_AT_IO_ON
 } CMP3_AT_IO_TypeDef;
-
 
 /* CMP3_Push_Pull_Output_to_IO_enumeration */
 typedef enum
@@ -448,7 +445,6 @@ typedef struct
 #define CMP3_FLAG_CHOUT1          (uint32_t)0x00080000
 #define CMP3_FLAG_CHOUT2          (uint32_t)0x00100000
 #define CMP3_FLAG_CHOUT3          (uint32_t)0x00200000
-
 
 void         QII1_AE_Cmd(FunctionalState NewState);
 void         QII2_AE_Cmd(FunctionalState NewState);

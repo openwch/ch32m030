@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT  *******************************
  * File Name          : ch32m030.h
  * Author             : WCH
- * Version            : V1.0.1
- * Date               : 2024/12/00
+ * Version            : V1.0.2
+ * Date               : 2024/12/12
  * Description        : CH32M030 Device Peripheral Access Layer Header File.
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -26,7 +26,7 @@ extern "C" {
 
 /* CH32M030 Standard Peripheral Library version number */
 #define __CH32M030_STDPERIPH_VERSION_MAIN   (0x01) /* [15:8] main version */
-#define __CH32M030_STDPERIPH_VERSION_SUB    (0x01) /* [7:0] sub version */
+#define __CH32M030_STDPERIPH_VERSION_SUB    (0x02) /* [7:0] sub version */
 #define __CH32M030_STDPERIPH_VERSION        ( (__CH32M030_STDPERIPH_VERSION_MAIN << 8)\
                                              |(__CH32M030_STDPERIPH_VERSION_SUB << 0))
 
@@ -1538,7 +1538,6 @@ typedef struct
 /*******************  Bit definition for FLASH_CTLR register  *******************/
 #define FLASH_CTLR_PER                          ((uint16_t)0x0002)     /* Page Erase */
 #define FLASH_CTLR_MER                          ((uint16_t)0x0004)     /* Mass Erase */
-#define FLASH_CTLR_OPTPG                        ((uint16_t)0x0010)     /* Option Byte Programming */
 #define FLASH_CTLR_OPTER                        ((uint16_t)0x0020)     /* Option Byte Erase */
 #define FLASH_CTLR_STRT                         ((uint16_t)0x0040)     /* Start */
 #define FLASH_CTLR_LOCK                         ((uint16_t)0x0080)     /* Lock */

@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT *******************************
  * File Name          : ch32m030_tim.c
  * Author             : WCH
- * Version            : V1.0.0
- * Date               : 2024/09/01
+ * Version            : V1.0.1
+ * Date               : 2024/12/23
  * Description        : This file provides all the TIM firmware functions.
 *********************************************************************************
 * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -1695,7 +1695,7 @@ void TIM_OC5PolarityConfig(TIM_TypeDef *TIMx, uint16_t TIM_OCPolarity)
 
     tmpccer = TIMx->TIM1_AUX2;
     tmpccer &= (uint16_t) ~((uint16_t)(1 << 15));
-    tmpccer |= (uint16_t)(TIM_OCPolarity << 15);
+    tmpccer |= (uint16_t)(TIM_OCPolarity << 14);
     TIMx->TIM1_AUX2 = tmpccer;
 }
 

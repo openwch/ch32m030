@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT *******************************
  * File Name          : main.c
  * Author             : WCH
- * Version            : V1.0.0
- * Date               : 2024/09/01
+ * Version            : V1.0.1
+ * Date               : 2025/01/08
  * Description        : Main program body.
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -69,7 +69,7 @@ void OPA4_Init(void)
     OPA_ISP_InitStruct.OPA_ISP_SEL_IO = OPA_ISP_SEL_TO_ADC_ON;
     OPA_ISP_InitStruct.OPA_ISP_QDET = OPA_ISP_QDET_EN_ON;
     OPA_ISP_InitStruct.OPA_ISP_QDET_PD30K = OPA_ISP_QDET_PD30K_OFF;
-    OPA_ISP_InitStruct.OPA_ISP_QDET_VBSEL = OPA_ISP_QDET_VBSEL_OFF;//≥Ÿ÷Õ10mv
+    OPA_ISP_InitStruct.OPA_ISP_QDET_VBSEL = OPA_ISP_QDET_VBSEL_OFF;
     OPA_ISP_Init(OPA4_ISP2,&OPA_ISP_InitStruct);
 
     OPA_ISP_Cmd(OPA4_ISP2,ENABLE);

@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT  *******************************
  * File Name          : ch32m030_opa.c
  * Author             : WCH
- * Version            : V1.0.1
- * Date               : 2024/12/02
+ * Version            : V1.0.2
+ * Date               : 2025/01/07
  * Description        : This file provides all the OPA firmware functions.
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -95,7 +95,6 @@ void CMP3_Cmd(FunctionalState NewState)
         OPA->CMP3_CFGR &= ~(uint32_t)(1 << 0);
     }
 }
-
 
 /*********************************************************************
  * @fn      OPA_ISP_Cmd
@@ -199,7 +198,6 @@ void OPA1_Init(OPA1_InitTypeDef *OPA1_InitStruct)
     OPA->QII_CFGR = tmp0;
 }
 
-
 /*********************************************************************
  * @fn      OPA1_StructInit
  *
@@ -301,7 +299,6 @@ void CMP1_StructInit(CMP1_InitTypeDef *CMP1_InitStruct)
     CMP1_InitStruct->CMP1_PT_IO = CMP1_PT_IO_PA12_OFF;
 }
 
-
 /*********************************************************************
  * @fn      CMP2_Init
  *
@@ -355,10 +352,8 @@ void CMP2_StructInit(CMP2_InitTypeDef *CMP2_InitStruct)
     CMP2_InitStruct->CMP2_FILT_CFG = 0;
     CMP2_InitStruct->CMP2_BK_EN = CMP2_BK_EN_TIM1BKIN_OFF;
     CMP2_InitStruct->CMP2_INT_EN = CMP2_INT_EN_OFF;
-    CMP2_InitStruct->CMP2_PT_IO = CMP1_PT_IO_PA12_OFF;
+    CMP2_InitStruct->CMP2_PT_IO = CMP2_PT_IO_PA13_OFF;
 }
-
-
 
 /*********************************************************************
  * @fn      CMP3_Init
