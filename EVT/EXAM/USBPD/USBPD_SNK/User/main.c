@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT *******************************
  * File Name          : main.c
  * Author             : WCH
- * Version            : V1.0.1
- * Date               : 2025/01/03
+ * Version            : V1.0.2
+ * Date               : 2025/09/19
  * Description        : Main program body.
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -20,7 +20,7 @@
  * Be sure to pay attention to the voltage when changing the request
  * to prevent burning the board.
  *
- * There is no integrated 5.1K pull-down inside CC in CH32M030C8T7 and CH32M030G8R7
+ * There is no integrated 5.1K pull-down inside CC in CH32M030C8T and CH32M030G8R
  * Make sure the hardware circuit CC pin is externally connected to 5.1 K pull-down resistance
  * CC_PD is only for status differentiation,
  * bit write 1 means SNK mode, write 0 means SCR mode
@@ -28,7 +28,7 @@
  * Modify "PDO_Request( PDO_INDEX_1 )" to modify the request voltage.
  *
  *Select either USBPD0 or USBPD1 to modify the configuration in PD_Process.h
- *Chip CH32M030G8R7 only has USBPD1
+ *Chip CH32M030G8R only has USBPD1
  *
  * According to the usage scenario of PD SNK, whether
  * it is removed or not should be determined by detecting

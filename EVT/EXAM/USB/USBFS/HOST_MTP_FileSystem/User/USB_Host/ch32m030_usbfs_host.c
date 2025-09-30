@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT *******************************
 * File Name          : ch32f20x_usbfs_host.c
 * Author             : WCH
-* Version            : V1.0.0
-* Date               : 2022/09/01
+* Version            : V1.0.1
+* Date               : 2025/09/23
 * Description        : USB full-speed port host operation functions.
 *********************************************************************************
 * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -48,6 +48,7 @@ void USBFS_Host_Init( FunctionalState sta )
     if( sta == ENABLE )
     {
         USBFSH->BASE_CTRL = USBFS_UC_HOST_MODE;
+        while(!(USBFSH->BASE_CTRL & USBFS_UC_HOST_MODE));
         USBFSH->HOST_CTRL = 0;
         USBFSH->DEV_ADDR = 0;
         USBFSH->HOST_EP_MOD = USBFS_UH_EP_TX_EN | USBFS_UH_EP_RX_EN;

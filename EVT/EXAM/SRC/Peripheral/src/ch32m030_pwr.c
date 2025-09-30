@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT *******************************
  * File Name          : ch32m030_pwr.c
  * Author             : WCH
- * Version            : V1.0.0
- * Date               : 2024/09/01
+ * Version            : V1.0.1
+ * Date               : 2025/09/19
  * Description        : This file provides all the PWR firmware functions.
 *********************************************************************************
 * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -212,11 +212,9 @@ void PWR_VDD8_Config(uint32_t VDD8_SEL)
 /*********************************************************************
  * @fn      ISINK_Config
  *
- * @brief   Configures ISINK1 and ISINK2.
+ * @brief   Configures ISINK1 data.
  *
  * @param   ISINK1_data - ISINK1 programmable data bits,which must be
- *        lower than 0x400.
- *          ISINK2_data - ISINK2 programmable data bits,which must be
  *        lower than 0x400.
  *
  * @return  none
@@ -231,11 +229,9 @@ void ISINK1_Config(uint16_t ISINK_data)
 /*********************************************************************
  * @fn      ISINK2_Config
  *
- * @brief   Configures ISINK1 and ISINK2.
+ * @brief   Configures ISINK2 data.
  *
- * @param   ISINK1_data - ISINK1 programmable data bits,which must be
- *        lower than 0x400.
- *          ISINK2_data - ISINK2 programmable data bits,which must be
+ * @param   ISINK2_data - ISINK2 programmable data bits,which must be
  *        lower than 0x400.
  *
  * @return  none
@@ -247,3 +243,68 @@ void ISINK2_Config(uint16_t ISINK_data)
     EXTEN->EXTEN_CTLR2 = ISINK_ADJ;
 }
 
+/*********************************************************************
+ * @fn      ISOURCE1_GetData
+ *
+ * @brief   Get ISOURCE1 current data.
+ *
+ * @param   ISOURCE_LEVEL_HIGH - ISOURCE output high gear level,The ISRC1_SEL
+                        bit of the EXTEN_CTLR0 register selects the high bit.
+ *          ISOURCE_LEVEL_LOW - ISOURCE output low gear level,The ISRC1_SEL 
+                        bit of the EXTEN_CTLR0 register selects the low bit.
+ *
+ * @return  0 - Error(The value is invalid).
+ *          other - The ISOURCE1 output current value (nA).
+ */
+uint32_t ISOURCE1_GetData(uint8_t ISOURCE_LEVEL)
+{
+    uint32_t ISourceValue = 0;
+
+    if((*(uint32_t*)CFG1_ISOURCE_DATA) != 0xFFFFFFFF)
+    {
+        if(ISOURCE_LEVEL != 0)
+        {
+            ISourceValue = (*(uint32_t*)CFG1_ISOURCE_DATA)&(0xFFFF);
+        }
+        else
+        {
+            ISourceValue = ((*(uint32_t*)CFG1_ISOURCE_DATA)&(0xFFFF))>>2;
+        }
+        ISourceValue = ISourceValue*10;
+    }
+
+    return ISourceValue;
+}
+
+/*********************************************************************
+ * @fn      ISOURCE2_GetData
+ *
+ * @brief   Get ISOURCE2 current data.
+ *
+ * @param   ISOURCE_LEVEL_HIGH - ISOURCE output high gear level,The ISRC2_SEL
+                        bit of the EXTEN_CTLR0 register selects the high bit.
+ *          ISOURCE_LEVEL_LOW - ISOURCE output low gear level,The ISRC2_SEL 
+                        bit of the EXTEN_CTLR0 register selects the low bit.
+ *
+ * @return  0 - Error(The value is invalid).
+ *          other - The ISOURCE2 output current value (nA).
+ */
+uint32_t ISOURCE2_GetData(uint8_t ISOURCE_LEVEL)
+{
+    uint32_t ISourceValue = 0;
+
+    if((*(uint32_t*)CFG1_ISOURCE_DATA) != 0xFFFFFFFF)
+    {
+        if(ISOURCE_LEVEL != 0)
+        {
+            ISourceValue = (uint32_t)((*(uint32_t*)CFG1_ISOURCE_DATA)>>16);
+        }
+        else
+        {
+            ISourceValue = (uint32_t)((*(uint32_t*)CFG1_ISOURCE_DATA)>>18);
+        }
+        ISourceValue = ISourceValue*10;
+    }
+
+    return ISourceValue;
+}

@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT *******************************
  * File Name          : ch32m030_uart.c
  * Author             : WCH
- * Version            : V1.0.0
- * Date               : 2024/09/01
+ * Version            : V1.0.1
+ * Date               : 2025/09/19
  * Description        : This file provides all the UART firmware functions.
 *********************************************************************************
 * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -81,10 +81,6 @@ void USART_Init(USART_TypeDef *USARTx, USART_InitTypeDef *USART_InitStruct)
     uint32_t          fractionaldivider = 0x00;
     RCC_ClocksTypeDef RCC_ClocksStatus;
 
-    if(USART_InitStruct->USART_HardwareFlowControl != USART_HardwareFlowControl_None)
-    {
-    }
-
     tmpreg = USARTx->CTLR2;
     tmpreg &= CTLR2_STOP_CLEAR_Mask;
     tmpreg |= (uint32_t)USART_InitStruct->USART_StopBits;
@@ -105,15 +101,19 @@ void USART_Init(USART_TypeDef *USARTx, USART_InitTypeDef *USART_InitStruct)
 
     apbclock = RCC_ClocksStatus.HCLK_Frequency;
 
-    integerdivider = ((25 * apbclock) / (4 * (USART_InitStruct->USART_BaudRate)));
-
-    tmpreg = (integerdivider / 100) << 4;
-
-    fractionaldivider = integerdivider - (100 * (tmpreg >> 4));
-
-    tmpreg |= ((((fractionaldivider * 16) + 50) / 100)) & ((uint8_t)0x0F);
-
-    USARTx->BRR = (uint16_t)tmpreg;
+	integerdivider    = ((25 * apbclock) / (4 * (USART_InitStruct->USART_BaudRate)));
+    tmpreg            = (integerdivider / 100) << 4;    
+	fractionaldivider = integerdivider - (100 * (tmpreg >> 4));
+    fractionaldivider = (((fractionaldivider * 16) + 50) / 100);
+    if (fractionaldivider > 0xf)    
+	{
+        tmpreg += 1 << 4;    
+	}    
+	else
+	{
+		tmpreg |= fractionaldivider & ((uint8_t)0x0f);    
+	}
+	USARTx->BRR = (uint16_t)tmpreg;
 }
 
 /*********************************************************************
