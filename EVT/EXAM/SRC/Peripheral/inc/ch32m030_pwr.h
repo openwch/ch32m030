@@ -38,6 +38,10 @@ extern "C" {
 #define PWR_VDD8_SEL_9V           ((uint32_t)0x00000040)
 #define PWR_VDD8_SEL_10V          ((uint32_t)0x00000060)
 
+/* ISOURCE_LEVEL */
+#define ISOURCE_LEVEL_LOW         ((uint8_t)0x00)
+#define ISOURCE_LEVEL_HIGH        ((uint8_t)0x01)
+
 void       PWR_DeInit(void);
 void       PWR_EnterSTOPMode(uint8_t PWR_STOPEntry);
 void       PWR_EnterSTANDBYMode(uint8_t PWR_STANDBYEntry);
@@ -49,7 +53,8 @@ void       PWR_AWU_SetWindowValue(uint8_t WindowValue);
 void       PWR_VDD8_Config(uint32_t VDD8_SEL);
 void       ISINK1_Config(uint16_t ISINK_data);
 void       ISINK2_Config(uint16_t ISINK_data);
-
+uint32_t   ISOURCE1_GetData(uint8_t ISOURCE_LEVEL);
+uint32_t   ISOURCE2_GetData(uint8_t ISOURCE_LEVEL);
 #ifdef __cplusplus
 }
 #endif

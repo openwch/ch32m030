@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT  *******************************
  * File Name          : ch32m030_dbgmcu.c
  * Author             : WCH
- * Version            : V1.0.0
- * Date               : 2024/09/01
+ * Version            : V1.0.1
+ * Date               : 2025/09/05
  * Description        : This file provides all the DBGMCU firmware functions.
 *********************************************************************************
 * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -22,7 +22,7 @@
  */
 uint32_t DBGMCU_GetREVID(void)
 {
-    return ((*(uint32_t *)0x1FFFF384) >> 16);
+	return ((*(uint32_t *)0x1FFFF384) & IDCODE_DEVID_MASK);
 }
 
 /*********************************************************************
@@ -34,7 +34,7 @@ uint32_t DBGMCU_GetREVID(void)
  */
 uint32_t DBGMCU_GetDEVID(void)
 {
-    return ((*(uint32_t *)0x1FFFF384) & IDCODE_DEVID_MASK);
+    return ((*(uint32_t *)0x1FFFF384) >> 16);
 }
 
 /*********************************************************************
@@ -89,10 +89,10 @@ void DBGMCU_Config(uint32_t DBGMCU_Periph, FunctionalState NewState)
  * @return Device identifier.
  *          ChipID List-
  *            CH32M030C8U7-0x03B00800
- *	          CH32M030C8T7-0x03B10800
- *            CH32M030K8U7-0x03B20800
+ *	          CH32M030C8T -0x03B10800
+ *            CH32M030K8U -0x03B20800
  *            CH32M030C8U3-0x03B30800
- *            CH32M030G8R7-0x03BB0800
+ *            CH32M030G8R -0x03BB0800
  */
 uint32_t DBGMCU_GetCHIPID( void )
 {

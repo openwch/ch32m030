@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT  *******************************
  * File Name          : ch32m030.h
  * Author             : WCH
- * Version            : V1.0.3
- * Date               : 2025/03/11
+ * Version            : V1.0.4
+ * Date               : 2025/09/19
  * Description        : CH32M030 Device Peripheral Access Layer Header File.
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -26,7 +26,7 @@ extern "C" {
 
 /* CH32M030 Standard Peripheral Library version number */
 #define __CH32M030_STDPERIPH_VERSION_MAIN   (0x01) /* [15:8] main version */
-#define __CH32M030_STDPERIPH_VERSION_SUB    (0x03) /* [7:0] sub version */
+#define __CH32M030_STDPERIPH_VERSION_SUB    (0x04) /* [7:0] sub version */
 #define __CH32M030_STDPERIPH_VERSION        ( (__CH32M030_STDPERIPH_VERSION_MAIN << 8)\
                                              |(__CH32M030_STDPERIPH_VERSION_SUB << 0))
 
@@ -673,7 +673,9 @@ typedef struct
 #define DBGMCU                                  ((DBGMCU_TypeDef *)DBGMCU_BASE)
 
 #define VENDOR_CFG0_BASE                        ((uint32_t)0x1FFFF390)
+#define VENDOR_CFG1_BASE                        ((uint32_t)0x1FFFF394)
 #define CFG0_ISINK_ADJ                          (VENDOR_CFG0_BASE)
+#define CFG1_ISOURCE_DATA                       (VENDOR_CFG1_BASE)
 
 /******************************************************************************/
 /*                         Peripheral Registers Bits Definition               */

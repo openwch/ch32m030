@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT  *******************************
  * File Name          : ch32m030_gpio.c
  * Author             : WCH
- * Version            : V1.0.0
- * Date               : 2024/09/01
+ * Version            : V1.0.1
+ * Date               : 2025/09/05
  * Description        : This file provides all the GPIO firmware functions.
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -461,7 +461,7 @@ void GPIO_IPD_Unused(void)
     chip =  *( uint32_t * )0x1FFFF384 & (~0x000000F0);
     switch(chip)
     {
-        case 0x03B20800:     //CH32M030K8U7
+        case 0x03B20800:     //CH32M030K8U
         {
             GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5|GPIO_Pin_11\
                                           |GPIO_Pin_12|GPIO_Pin_15;
@@ -474,7 +474,7 @@ void GPIO_IPD_Unused(void)
             GPIO_Init(GPIOC, &GPIO_InitStructure);
             break;
         }
-        case 0x03BB0800:     //CH32M030G8R7
+        case 0x03BB0800:     //CH32M030G8R
         {
             GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4|GPIO_Pin_5\
                                           |GPIO_Pin_6|GPIO_Pin_12\
@@ -499,7 +499,7 @@ void GPIO_IPD_Unused(void)
             GPIO_Init(GPIOC, &GPIO_InitStructure);
             break;
         }
-        case 0x03B10800:     //CH32M030C8T7
+        case 0x03B10800:     //CH32M030C8T
         {
             break;
         }

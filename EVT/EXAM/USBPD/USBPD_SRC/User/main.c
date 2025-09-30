@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT *******************************
  * File Name          : main.c
  * Author             : WCH
- * Version            : V1.0.1
- * Date               : 2025/01/03
+ * Version            : V1.0.2
+ * Date               : 2025/09/19
  * Description        : Main program body.
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -20,9 +20,9 @@
  * Be sure to close the pull-down resistors on both CC wires  when using this Sample code!
  *
  *Select either USBPD0 or USBPD1 to modify the configuration in PD_Process.h
- *Chip CH32M030G8R7 only has USBPD1
+ *Chip CH32M030G8R only has USBPD1
  *
- * If CH32M030C8T7 and CH32M030G8R7 are selected, make sure the hardware circuit CC pin is not attached to 5.1K pull-down resistance
+ * If CH32M030C8T and CH32M030G8R are selected, make sure the hardware circuit CC pin is not attached to 5.1K pull-down resistance
  *
  * The inability to control the VBUS voltage on the board may lead to some compatibility problems,
  * mainly manifested in the inability of some devices to complete the PD communication process.

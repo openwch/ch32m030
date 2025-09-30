@@ -1,8 +1,8 @@
 ;/********************************** (C) COPYRIGHT *******************************
 ;* File Name          : startup_ch32m030.s
 ;* Author             : WCH
-;* Version            : V1.0.0
-;* Date               : 2024/01/11
+;* Version            : V1.0.1
+;* Date               : 2025/06/04
 ;* Description        : CH32M030 vector table for eclipse toolchain.
 ;*********************************************************************************
 ;* Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -180,7 +180,7 @@ handle_reset:
 	bltu a0, a1, 1b
 2:
 /* Enabale MIE mapping and prefetch */
-    li t0, 0x25
+    li t0, 0x21
     csrw 0xbc0, t0
 /* Enable interrupt nesting and hardware stack */
 	li t0, 0xf
