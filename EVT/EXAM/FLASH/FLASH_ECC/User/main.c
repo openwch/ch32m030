@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT *******************************
  * File Name          : main.c
  * Author             : WCH
- * Version            : V1.0.0
- * Date               : 2024/09/01
+ * Version            : V1.0.
+ * Date               : 2026/10/14
  * Description        : Main program body.
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -107,7 +107,7 @@ int main(void)
 #else
     USART_Printf_Init(115200);
 #endif
-EXTEN->EXTEN_KEYR = EXTEN_KEY1;
+
     printf("SystemClk-1:%d\r\n", SystemCoreClock);
     printf( "ChipID:%08x\r\n", DBGMCU_GetCHIPID() );
 

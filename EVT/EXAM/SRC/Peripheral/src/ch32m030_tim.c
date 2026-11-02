@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT *******************************
  * File Name          : ch32m030_tim.c
  * Author             : WCH
- * Version            : V1.0.2
- * Date               : 2025/02/21
+ * Version            : V1.0.3
+ * Date               : 2026/10/19
  * Description        : This file provides all the TIM firmware functions.
 *********************************************************************************
 * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -155,7 +155,7 @@ void TIM_OC1Init(TIM_TypeDef *TIMx, TIM_OCInitTypeDef *TIM_OCInitStruct)
             tmpccer |= (1<<6);
         }
 
-        tmpcr1 &= ~(1<<10);
+        TIMx->CTLR1 &= ~(1<<10);
         if(TIM_OCInitStruct->TIM_OutputNState)
         {
             tmpcr1 |= (1<<10);
@@ -229,7 +229,7 @@ void TIM_OC2Init(TIM_TypeDef *TIMx, TIM_OCInitTypeDef *TIM_OCInitStruct)
             tmpccer |= (1<<7);
         }
 
-        tmpcr1 &= ~(1<<11);
+        TIMx->CTLR1 &= ~(1<<11);
         if(TIM_OCInitStruct->TIM_OutputNState)
         {
             tmpcr1 |= (1<<11);
@@ -1518,7 +1518,7 @@ void TIM_ClearOC5Ref(TIM_TypeDef *TIMx, uint16_t TIM_OCClear)
 
     tmp = TIMx->TIM1_AUX2;
     tmp &= (uint16_t) ~(1 << 11);
-    tmp |= (uint16_t)(TIM_OCClear << 11);
+    tmp |= (uint16_t)(TIM_OCClear << 4);
     TIMx->TIM1_AUX2 = tmp;
 }
 

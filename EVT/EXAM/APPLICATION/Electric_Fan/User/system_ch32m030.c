@@ -10,6 +10,7 @@
 * microcontroller manufactured by Nanjing Qinheng Microelectronics.
 *******************************************************************************/
 #include "ch32m030.h"
+extern volatile uint32_t ISINK_ADJ;
 /*
  * Uncomment the line corresponding to the desired System clock (SYSCLK) frequency (after
  * reset the HSI is used as SYSCLK source).
@@ -64,7 +65,6 @@ static void SetSysClockTo48_HSI( void );
 static void SetSysClockTo72_HSI( void );
 
 #endif
-extern volatile uint32_t ISINK_ADJ ;
 /*********************************************************************
  * @fn      SystemInit
  *

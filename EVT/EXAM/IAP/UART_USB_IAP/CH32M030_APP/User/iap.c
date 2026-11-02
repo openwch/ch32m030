@@ -16,15 +16,12 @@
 /******************************************************************************/
 
 #define USBD_DATA_SIZE   64
-iapfun jump2app;
-u32 Program_addr = FLASH_Base;
-u32 Verify_addr = FLASH_Base;
-u32 User_APP_Addr_offset = 0x5000;
-u8 Verify_Star_flag = 0;
-u8 Fast_Program_Buf[390];
-u32 Program_Buf[32];
-u32 CodeLen = 0;
-u8 End_Flag = 0;
+
+vu32 Program_addr = FLASH_Base;
+vu32 Verify_addr = FLASH_Base;
+vu8 Fast_Program_Buf[390];
+vu32 Program_Buf[32];
+
 u8 EP2_Rx_Buffer[USBD_DATA_SIZE+4];
 #define  isp_cmd_t   ((isp_cmd  *)EP2_Rx_Buffer)
 
@@ -38,14 +35,7 @@ u8 EP2_Rx_Buffer[USBD_DATA_SIZE+4];
  */
 void CH32_IAP_Program(u32 adr, u32* buf)
 {
-    u8 i,j;
-
-    FLASH_BufReset();
-    for(i=0; i<16; i++){
-        j= 2*i;
-        FLASH_BufLoad(adr+4*j, buf[j],buf[j+1]);
-    }
-    FLASH_ProgramPage_Fast(adr);
+    FLASH_ROM_WRITE(adr,buf,128);
 }
 
 /*********************************************************************
@@ -101,13 +91,9 @@ u8 RecData_Deal(void)
          break;
 
      case CMD_JUMP_IAP:
-         FLASH_Unlock_Fast();
          Program_Buf_Modify();
-         FLASH_ErasePage_Fast(CalAddr & 0xFFFFFF80);
+         FLASH_ROM_ERASE(CalAddr & 0xFFFFFF80,128);
          CH32_IAP_Program(CalAddr & 0xFFFFFF80,(u32*)Program_Buf);
-         FLASH->CTLR |= ((uint32_t)0x00008000);
-         FLASH->CTLR |= ((uint32_t)0x00000080);
-
          s = ERR_SUCCESS;
          break;
 

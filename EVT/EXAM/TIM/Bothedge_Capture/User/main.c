@@ -41,7 +41,9 @@ void TIM1_TRG_COM_IRQHandler(void)
 {
     if( TIM_GetITStatus( TIM1, TIM_IT_Trigger ) != RESET )
     {
+        #if 0
         printf( "CH1_Val:%08X\r\n", TIM1->CH1CVR );
+        #endif
     }
     TIM_ClearITPendingBit( TIM1, TIM_IT_Trigger);
 }
@@ -57,7 +59,9 @@ void TIM1_CC_IRQHandler(void)
 {
     if( TIM_GetITStatus( TIM1, TIM_IT_CC2 ) != RESET )
     {
+        #if 0
         printf("CH2CVR:%08X\r\n",TIM1->CH2CVR);
+        #endif
     }
     TIM_ClearFlag(TIM1, TIM_FLAG_CC2);
 }
@@ -181,9 +185,9 @@ int main(void)
     printf( "ChipID:%08x\r\n", DBGMCU_GetCHIPID() );
 
 #if (MODE == MODE0)
-    CH1_Capture_Bothedge_Init( 0xFFFF, 48000-1 );
+    CH1_Capture_Bothedge_Init( 0xFFFF-1, 48000-1 );
 #else
-    CH2_Capture_Bothedge_Init( 0xFFFF, 48000-1 );
+    CH2_Capture_Bothedge_Init( 0xFFFF-1, 48000-1 );
 #endif
 
     while(1);

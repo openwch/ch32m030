@@ -56,6 +56,20 @@ void WWDG_Config(uint8_t tr, uint8_t wr, uint32_t prv)
     WWDG_EnableIT();
 }
 
+void WWDG_IRQHandler(void) __attribute__((interrupt("WCH-Interrupt-fast")));
+
+/*********************************************************************
+ * @fn      WWDG_IRQHandler
+ *
+ * @brief   This function handles WWDG exception.
+ *
+ * @return  none
+ */
+void WWDG_IRQHandler(void)
+{
+    WWDG_ClearFlag();
+}
+
 /*********************************************************************
  * @fn      WWDG_Feed
  *

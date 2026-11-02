@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT *******************************
  * File Name          : main.c
  * Author             : WCH
- * Version            : V1.0.0
- * Date               : 2024/09/01
+ * Version            : V1.0.2
+ * Date               : 2026/10/14
  * Description        : Main program body.
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -13,8 +13,9 @@
 /*
  *@Note
  *FLASH erase/read/write, and fast programming:
- *Includes Standard Erase and Program, Fast Erase and Program.
- *
+ *Includes Fast Erase and Program.
+ *It is recommended to use the erase function - FLASH_ROM_ERASE.
+ *It is recommended to use the program function - FLASH_ROM_WRITE. 
 */
 
 #include "debug.h"
@@ -101,7 +102,6 @@ int main(void)
 {
     SystemCoreClockUpdate();
     Delay_Init();
-    Delay_Ms(1000);
 
 #if (SDI_PRINT == SDI_PR_OPEN)
     SDI_Printf_Enable();
@@ -109,8 +109,8 @@ int main(void)
     USART_Printf_Init(115200);
 #endif
 
-    printf("SystemClk-1:%d\r\n", SystemCoreClock);
-    printf( "ChipID:%08x\r\n", DBGMCU_GetCHIPID() );
+    printf("SystemClk-1:%u\r\n", SystemCoreClock);
+    printf( "ChipID:%08u\r\n", DBGMCU_GetCHIPID() );
 
     Flash_Test_Fast();
 

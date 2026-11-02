@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT  *******************************
  * File Name          : ch32m030.h
  * Author             : WCH
- * Version            : V1.0.4
- * Date               : 2025/09/19
+ * Version            : V1.0.7
+ * Date               : 2026/10/28
  * Description        : CH32M030 Device Peripheral Access Layer Header File.
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -26,7 +26,7 @@ extern "C" {
 
 /* CH32M030 Standard Peripheral Library version number */
 #define __CH32M030_STDPERIPH_VERSION_MAIN   (0x01) /* [15:8] main version */
-#define __CH32M030_STDPERIPH_VERSION_SUB    (0x04) /* [7:0] sub version */
+#define __CH32M030_STDPERIPH_VERSION_SUB    (0x07) /* [7:0] sub version */
 #define __CH32M030_STDPERIPH_VERSION        ( (__CH32M030_STDPERIPH_VERSION_MAIN << 8)\
                                              |(__CH32M030_STDPERIPH_VERSION_SUB << 0))
 
@@ -821,7 +821,7 @@ typedef struct
 
 #define ADC_SMP12                               ((uint32_t)0x03000000) /* SMP12[2:0] bits (Channel 12 Sample time selection) */
 #define ADC_SMP12_0                             ((uint32_t)0x01000000) /* Bit 0 */
-#define ADC_SMP12_1                             ((uint32_t)0x020000000) /* Bit 1 */
+#define ADC_SMP12_1                             ((uint32_t)0x02000000) /* Bit 1 */
 
 #define ADC_SMP13                               ((uint32_t)0x0C000000) /* SMP13[2:0] bits (Channel 13 Sample time selection) */
 #define ADC_SMP13_0                             ((uint32_t)0x04000000) /* Bit 0 */
@@ -1547,12 +1547,12 @@ typedef struct
 #define FLASH_CTLR_ERRIE                        ((uint16_t)0x0400)     /* Error Interrupt Enable */
 #define FLASH_CTLR_EOPIE                        ((uint16_t)0x1000)     /* End of operation interrupt enable */
 #define FLASH_CTLR_FLOCK                        ((uint16_t)0x8000)
-#define FLASH_CTLR_PAGE_PG                      ((uint16_t)0x00010000) /* Page Programming 128Byte */
-#define FLASH_CTLR_PAGE_ER                      ((uint16_t)0x00020000) /* Page Erase 128Byte */
-#define FLASH_CTLR_BUF_LOAD                     ((uint16_t)0x00040000) /* Buffer Load */
-#define FLASH_CTLR_BUF_RST                      ((uint16_t)0x00080000) /* Buffer Reset */
-#define FLASH_CTLR_ECCERRIE                     ((uint16_t)0x00100000)
-#define FLASH_CTLR_ECCCORIE                     ((uint16_t)0x00200000)
+#define FLASH_CTLR_PAGE_PG                      ((uint32_t)0x00010000) /* Page Programming 128Byte */
+#define FLASH_CTLR_PAGE_ER                      ((uint32_t)0x00020000) /* Page Erase 128Byte */
+#define FLASH_CTLR_BUF_LOAD                     ((uint32_t)0x00040000) /* Buffer Load */
+#define FLASH_CTLR_BUF_RST                      ((uint32_t)0x00080000) /* Buffer Reset */
+#define FLASH_CTLR_ECCERRIE                     ((uint32_t)0x00100000)
+#define FLASH_CTLR_ECCCORIE                     ((uint32_t)0x00200000)
 
 /*******************  Bit definition for FLASH_ADDR register  *******************/
 #define FLASH_ADDR_FAR                          ((uint32_t)0xFFFFFFFF) /* Flash Address */

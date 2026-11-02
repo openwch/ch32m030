@@ -1,5 +1,5 @@
 
-Nanjing Qinheng Microelectronics Co., Ltd. 2025.01
+Nanjing Qinheng Microelectronics Co., Ltd. 2026.10
 
 https://wch-ic.com
 
@@ -30,7 +30,29 @@ Directory
   |      |      |      |      |-- TIM_Trigger:TIM trigger ADC conversion routine 
   |      |      |      |-- APPLICATION
   |      |      |      |      |-- SoftUART:I/O port simulation serial port routine  
-  |      |      |      |      |-- Electric_Fan：motor routine
+  |      |      |      |      |-- Electric_Fan: motor routine
+  |      |      |      |      |      |-- Electric_Fan: motor routine
+  |      |      |      |      |      |-- DOC_SCH: Motor application schematic diagram and description
+  |      |      |      |      |-- PD: 
+  |      |      |      |      |      |-- Common: 
+  |      |      |      |      |      |      |-- Debug: Debug Library
+  |      |      |      |      |      |      |-- DOC_SCH: Motor application schematic diagram and description
+  |      |      |      |      |      |      |-- USBBB: USB Library
+  |      |      |      |      |      |      |-- USBPD: PD Library 
+  |      |      |      |      |      |-- USBPD_DRP:   
+  |      |      |      |      |      |      |-- DRP_PRSwap: Port1 acts as SNK, while Port0 is DRP. After connecting Port1, send PRSwap, and send 5V and 9V PDO levels. First connect Port1, establish PD, and request 5V PDO level
+  |      |      |      |      |      |      |-- DRP_SPR_Passthrough: After Port0 handshake with SNK, it sends the SrcCap of the Port1 adapter, demonstrating the PDO processing process
+  |      |      |      |      |      |-- USBPD_SNK:   
+  |      |      |      |      |      |      |-- SNK_SPR_Request5V: Port0 engages in a handshake with SRC, the serial port displays the received Srccap, and requests a 5V PDO voltage level
+  |      |      |      |      |      |      |-- SNK_EPR_Request28V: Port0 engages in handshake with SRC. If EPR is supported, it requests to enter EPR mode and engages in handshake with a 28V gear
+  |      |      |      |      |      |      |-- SNK_GetSrcCapabilities: After establishing Port0 PD, send a GetSrccap message to obtain the power supply message capability of SRC
+  |      |      |      |      |      |      |-- SNK_SendVdmIdentity: After establishing Port0 PD, send a VDM Ident message to obtain SRC VDM information
+  |      |      |      |      |      |      |-- SNK_ADC_NTC: Connect an external NTC resistor, and use ADC sampling to obtain temperature
+  |      |      |      |      |      |-- USBPD_SRC:   
+  |      |      |      |      |      |      |-- SRC_Vconn_TxSrcCap: Port0 engages in a handshake with SNK, establishes Vconn power supply, retrieves EMK information, and subsequently transmits SrcCap values of 5V and 9V
+  |      |      |      |      |      |      |-- SRC_DRSwap_Billboard: After establishing Port0 PD, send a DRSwap message and display a pop-up indicating USB Billboard with no DP capability
+  |      |      |      |      |      |      |-- SRC_GetSinkCap: After establishing Port0 PD, send a GetSinkCap message to obtain the power supply message capability of the SNK
+  |      |      |      |      |      |      |-- SRC_SPR_Request_IsinkVoltChange: ISINK, Port0 shakes hands with SNK, adjusts the voltage according to SNK's Request message, and establishes PD communication
   |      |      |      |-- DMA
   |      |      |      |      |-- DMA_MEM2MEM:memory to memory mode routine
   |      |      |      |      |-- DMA_MEM2PERIP:see each peripheral subroutine for memory to peripheral mode and peripheral to memory mode routines
@@ -51,8 +73,8 @@ Directory
   |      |      |      |-- IAP
   |      |      |      |      |-- UART_USB_IAP:IAP Upgrade Routine - Built-in Hex to Bin Tool and IAP Upgrade Tool
   |      |      |      |-- INT
-  |      |      |      |      |-- Interrupt_VTF：use VTF IRQ interrupt routine  
-  |      |      |      |      |-- VectorInRAM：Interrupt routines for the interrupt vector table in RAM
+  |      |      |      |      |-- Interrupt_VTF: use VTF IRQ interrupt routine  
+  |      |      |      |      |-- VectorInRAM: Interrupt routines for the interrupt vector table in RAM
   |      |      |      |-- OPA
   |      |      |      |      |-- CMP:Comparator routine
   |      |      |      |      |-- CMP_IRQ:CMP interrupt routine

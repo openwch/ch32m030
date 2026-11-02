@@ -84,7 +84,6 @@ void UART1_CfgInit( uint32_t baudrate, uint8_t stopbits, uint8_t parity )
 {
     USART_InitTypeDef USART_InitStructure = {0};
     GPIO_InitTypeDef  GPIO_InitStructure = {0};
-    uint16_t dat = dat;
 
     /* delete contains in ( ... )  */
     /* First set the serial port introduction to output high then close the TE and RE of CTLR1 register (note that USARTx->CTLR1 register setting 9 bits has a limit) */
@@ -279,7 +278,7 @@ void UART1_DMAInit( uint8_t type, uint8_t *pbuf, uint32_t len )
  * @fn      UART1_Init
  *
  * @brief   UART1 total initialization
- *          mode     : See the useage of UART1_ParaInit( mode )
+ *          mode     : See the usage of UART1_ParaInit( mode )
  *          baudrate : Serial port 2 default baud rate
  *          stopbits : Serial port 2 default stop bits
  *          parity   : Serial port 2 default parity

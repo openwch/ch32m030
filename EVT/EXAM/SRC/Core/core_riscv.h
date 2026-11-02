@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT  *******************************
  * File Name          : core_riscv.h
  * Author             : WCH
- * Version            : V1.0.1
- * Date               : 2025/03/10
+ * Version            : V1.0.2
+ * Date               : 2025/12/03
  * Description        : RISC-V V3B Core Peripheral Access Layer Header File for CH32M030
 *********************************************************************************
 * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -259,10 +259,10 @@ __attribute__( ( always_inline ) ) RV_STATIC_INLINE uint32_t NVIC_GetActive(IRQn
  * @brief   Set Interrupt Priority
  *
  * @param   IRQn - Interrupt Numbers
- *          interrupt nesting enable(CSR-0xBC1 bit[2:1] = 1)
+ *          interrupt nesting enable(CSR-0xBC1 bit[1:0] = 1)
  *            priority - bit[7:6] - Preemption Priority
  *                       bit[5:0] - Reserve
- *          interrupt nesting disable(CSR-0xBC1 bit[2:1] = 0)
+ *          interrupt nesting disable(CSR-0xBC1 bit[1:0] = 0)
  *            priority - bit[7:6] - Sub priority
  *                       bit[5:0] - Reserve
  * @return  none

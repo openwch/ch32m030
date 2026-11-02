@@ -1,5 +1,6 @@
 {
 	"version": "1.0",
+	"hasAllParsed": true,
 	"isNormalMRSProject": true,
 	"basic": {
 		"chipInfo": {
@@ -10,7 +11,10 @@
 			"mcu": "CH32M030C8T",
 			"description": "===ROM(byte): 64K, SRAM(byte): 12K, CHIP PINS: 48, GPIO PORTS: 37.\\nWCH CH32M030 series of mainstream MCUs covers the needs of a large variety of applications in the industrial,medical and consumer markets. High performance with first-class peripherals and low-power,low-voltage operation is paired with a high level of integration at accessible prices with a simple architecture and easy-to-use tools.",
 			"link": "WCH-Link",
-			"peripheral_version": "===1.0"
+			"peripheral_version": "===1.0",
+			"calibrateSupport": false,
+			"UIConfigSupport": false,
+			"externalFlashSupport": false
 		},
 		"linkedFolders": [
 			{
@@ -31,6 +35,21 @@
 				"parentLogicPath": "",
 				"type": "file",
 				"name": "*.wvproj"
+			},
+			{
+				"parentLogicPath": "",
+				"type": "file",
+				"name": "*.7z"
+			},
+			{
+				"parentLogicPath": "",
+				"type": "file",
+				"name": "*.zip"
+			},
+			{
+				"parentLogicPath": "",
+				"type": "file",
+				"name": "*.tar"
 			}
 		],
 		"projectName": "VectorInRAM",
@@ -40,14 +59,15 @@
 	"buildConfig": {
 		"configurations": [
 			{
+				"parallelizationNumber": "optimal",
 				"buildArtifact": {
 					"artifact_name": "${ProjName}",
 					"artifact_extension": "elf",
 					"output_prefix": "",
 					"artifact_type": "Executable"
 				},
-				"parallelizationNumber": "optimal",
 				"stop_on_first_build_error": true,
+				"usingCacheAccelerate": false,
 				"pre_script": "",
 				"pre_script_description": "",
 				"post_script": "",
@@ -55,24 +75,6 @@
 				"excludeResources": [
 					"${project}/Startup/startup_ch32m030_5v.S"
 				],
-				"riscvTargetProcessor": {
-					"architecture": "rv32i",
-					"multiply_extension": true,
-					"atomic_extension": false,
-					"floating_point": "none",
-					"compressed_extension": true,
-					"extra_compressed_extension": true,
-					"bit_extension": true,
-					"multiplication_subset_of_the_M_extension": false,
-					"integer_ABI": "ilp32",
-					"floating_point_ABI": "none",
-					"tuning": "default",
-					"code_model": "default",
-					"small_data_limit": 8,
-					"align": "default",
-					"save_restore": false,
-					"other_target_flags": ""
-				},
 				"optimization": {
 					"level": "size",
 					"message_length": true,
@@ -91,6 +93,7 @@
 					"code_generation_without_hardware_floating": false,
 					"use_pipelines": false,
 					"show_caret_indicating_the_column": false,
+					"calling_convention_variant": false,
 					"other_optimization_flags": ""
 				},
 				"warnings": {
@@ -115,7 +118,7 @@
 				},
 				"debugging": {
 					"debug_level": "default",
-					"debug_format": "default",
+					"debug_format": "dwarf4",
 					"generate_prof_information": false,
 					"generate_gprof_information": false,
 					"other_debugging_flags": ""
@@ -220,7 +223,7 @@
 				"clinker": {
 					"general": {
 						"scriptFiles": [
-							"${project}/Ld/Link.ld"
+							"${project}/Ld/Link_vector.ld"
 						],
 						"do_not_use_standard_start_files": true,
 						"do_not_use_default_libraries": false,
@@ -254,7 +257,7 @@
 				"cpplinker": {
 					"general": {
 						"scriptFiles": [
-							"${project}/Ld/Link.ld"
+							"${project}/Ld/Link_vector.ld"
 						],
 						"do_not_use_standard_start_files": true,
 						"do_not_use_default_libraries": false,
@@ -286,7 +289,8 @@
 					}
 				},
 				"archiver": {
-					"archiver_flags": "-r"
+					"archiver_flags": "-r",
+					"libOutputPrefix": "lib"
 				},
 				"createFlash": {
 					"enabled": true,
@@ -294,6 +298,7 @@
 					"copy_only_section_text": false,
 					"copy_only_section_data": false,
 					"copy_only_sections": [],
+					"create_algorithm_file": false,
 					"other_flags": ""
 				},
 				"createList": {
@@ -317,19 +322,39 @@
 					"show_totals": false,
 					"other_flags": ""
 				},
-				"component_toolchain": "${WCH:Toolchain:GCC12}",
-				"name": "obj",
-				"configVariables": []
+				"configVariables": [],
+				"riscvTargetProcessor": {
+					"architecture": "rv32i",
+					"multiply_extension": true,
+					"atomic_extension": false,
+					"floating_point": "none",
+					"compressed_extension": true,
+					"extra_compressed_extension": true,
+					"bit_extension": true,
+					"multiplication_subset_of_the_M_extension": false,
+					"vector_cryptography_extensions": "",
+					"integer_ABI": "ilp32",
+					"floating_point_ABI": "none",
+					"tuning": "default",
+					"code_model": "default",
+					"small_data_limit": 8,
+					"align": "default",
+					"save_restore": false,
+					"other_target_flags": ""
+				},
+				"component_toolchain": "${WCH:Toolchain:GCC15}",
+				"name": "obj"
 			},
 			{
+				"parallelizationNumber": "optimal",
 				"buildArtifact": {
 					"artifact_name": "${ProjName}",
 					"artifact_extension": "elf",
 					"output_prefix": "",
 					"artifact_type": "Executable"
 				},
-				"parallelizationNumber": "optimal",
 				"stop_on_first_build_error": true,
+				"usingCacheAccelerate": false,
 				"pre_script": "",
 				"pre_script_description": "",
 				"post_script": "",
@@ -337,24 +362,6 @@
 				"excludeResources": [
 					"${project}/Startup/startup_ch32m030_5v.S"
 				],
-				"riscvTargetProcessor": {
-					"architecture": "rv32i",
-					"multiply_extension": true,
-					"atomic_extension": false,
-					"floating_point": "none",
-					"compressed_extension": true,
-					"extra_compressed_extension": true,
-					"bit_extension": true,
-					"multiplication_subset_of_the_M_extension": false,
-					"integer_ABI": "ilp32",
-					"floating_point_ABI": "none",
-					"tuning": "default",
-					"code_model": "default",
-					"small_data_limit": 8,
-					"align": "default",
-					"save_restore": false,
-					"other_target_flags": ""
-				},
 				"optimization": {
 					"level": "size",
 					"message_length": true,
@@ -373,6 +380,7 @@
 					"code_generation_without_hardware_floating": false,
 					"use_pipelines": false,
 					"show_caret_indicating_the_column": false,
+					"calling_convention_variant": false,
 					"other_optimization_flags": ""
 				},
 				"warnings": {
@@ -568,7 +576,8 @@
 					}
 				},
 				"archiver": {
-					"archiver_flags": "-r"
+					"archiver_flags": "-r",
+					"libOutputPrefix": "lib"
 				},
 				"createFlash": {
 					"enabled": true,
@@ -576,6 +585,7 @@
 					"copy_only_section_text": false,
 					"copy_only_section_data": false,
 					"copy_only_sections": [],
+					"create_algorithm_file": false,
 					"other_flags": ""
 				},
 				"createList": {
@@ -599,9 +609,28 @@
 					"show_totals": false,
 					"other_flags": ""
 				},
+				"configVariables": [],
+				"riscvTargetProcessor": {
+					"architecture": "rv32i",
+					"multiply_extension": true,
+					"atomic_extension": false,
+					"floating_point": "none",
+					"compressed_extension": true,
+					"extra_compressed_extension": true,
+					"bit_extension": true,
+					"multiplication_subset_of_the_M_extension": false,
+					"vector_cryptography_extensions": "",
+					"integer_ABI": "ilp32",
+					"floating_point_ABI": "none",
+					"tuning": "default",
+					"code_model": "default",
+					"small_data_limit": 8,
+					"align": "default",
+					"save_restore": false,
+					"other_target_flags": ""
+				},
 				"component_toolchain": "${WCH:Toolchain:GCC12}",
-				"name": "dbg",
-				"configVariables": []
+				"name": "dbg"
 			}
 		]
 	},
@@ -619,6 +648,8 @@
 		"disablepowerout": false,
 		"clearcodeflash": false,
 		"disablecodeprotect": false,
+		"flashType": "",
+		"asmFile_path": "",
 		"exepath": "",
 		"exearguments": ""
 	},
@@ -632,14 +663,14 @@
 			"configOptions": [
 				"-f \"${WCH:OpenOCD:default}/bin/wch-riscv.cfg\""
 			],
-			"host": "localhost",
+			"host": "127.0.0.1",
 			"port": 3333,
 			"skipDownloadBeforeDebug": false,
 			"enablePageEraser": false,
 			"enableNoZeroWaitingAreaFlash": false
 		},
 		"gdbCfg": {
-			"executable": "${WCH:Toolchain:GCC12}",
+			"executable": "${WCH:Toolchain:GCC15}",
 			"options": [],
 			"commands": [
 				"set mem inaccessible-by-default off",
@@ -694,8 +725,10 @@
 			"ATTR_BUILD_BEFORE_LAUNCH_ATTR": 2,
 			"GdbServerAllocateConsole": true,
 			"GdbServerAllocateTelnetConsole": false,
+			"SkipDownloadBeforeDebug": false,
 			"StartGdbCLient": true,
-			"UPDATE_THREADLIST_ON_SUSPEND": false
+			"UPDATE_THREADLIST_ON_SUSPEND": false,
+			"DebugInRam": false
 		}
 	}
 }

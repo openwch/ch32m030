@@ -22,7 +22,7 @@
 #include "debug.h"
 #include "iap.h"
 
-extern u8 End_Flag;
+extern vu8 End_Flag;
 #define UPGRADE_MODE_COMMAND   0
 #define UPGRADE_MODE_IO        1
 

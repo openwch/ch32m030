@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT *******************************
  * File Name          : main.c
  * Author             : WCH
- * Version            : V1.0.1
- * Date               : 2024/11/29
+ * Version            : V1.0.2
+ * Date               : 2026/10/16
  * Description        : Main program body.
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -52,8 +52,9 @@ void ADC_Function_Init(void)
     ADC_InitStructure.ADC_NbrOfChannel = 1;
     ADC_Init(ADC1, &ADC_InitStructure);
 
-    ADC_RegularChannelConfig(ADC1, ADC_Channel_0, 1, ADC_SampleTime_5Cycles5);
-    ADC_InjectedChannelConfig(ADC1, ADC_Channel_1, 1, ADC_SampleTime_5Cycles5);
+    ADC_InjectedSequencerLengthConfig(ADC1, 1);
+    ADC_RegularChannelConfig(ADC1, ADC_Channel_2, 1, ADC_SampleTime_59Cycles5);
+    ADC_InjectedChannelConfig(ADC1, ADC_Channel_3, 1, ADC_SampleTime_59Cycles5);
     ADC_AutoInjectedConvCmd(ADC1, ENABLE);
     ADC_Cmd(ADC1, ENABLE);
 

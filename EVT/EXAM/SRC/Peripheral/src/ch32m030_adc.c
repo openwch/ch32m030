@@ -1058,7 +1058,7 @@ FlagStatus ADC_GetFlagStatus(ADC_TypeDef *ADCx, uint32_t ADC_FLAG)
 
     flagmask = ADC_FLAG & 0x0FFFFFFF;
 
-    if((ADC_FLAG & 0xF000000) != 0)
+    if((ADC_FLAG & 0xF0000000) != 0)
     {
         if((ADCx->CTLR3 & flagmask) != (uint8_t)RESET)
         {
