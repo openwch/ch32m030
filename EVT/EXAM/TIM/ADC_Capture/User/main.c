@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT *******************************
  * File Name          : main.c
  * Author             : WCH
- * Version            : V1.0.1
- * Date               : 2025/01/08
+ * Version            : V1.0.2
+ * Date               : 2026/10/15
  * Description        : Main program body.
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -34,8 +34,10 @@ void TIM1_CC_IRQHandler(void)
 {
    if(TIM_GetFlagStatus(TIM1, TIM_FLAG_CC1)==SET)
    {
+       #if 0
        printf("CNT:%d\r\n", TIM1->CNT);
        printf("CH1CVR:%d\r\n", TIM1->CH1CVR);
+       #endif
        TIM_ClearFlag(TIM1, TIM_FLAG_CC1);
    }
 }
@@ -162,7 +164,7 @@ int main(void)
     printf("SystemClk:%d\r\n", SystemCoreClock);
     printf( "ChipID:%08x\r\n", DBGMCU_GetCHIPID() );
     ADC_Function_Init();
-    TIM1_ADCCap_Init( 10000, 7200);
+    TIM1_ADCCap_Init( 10000-1, 7200-1);
     ADC_SoftwareStartConvCmd(ADC1, ENABLE);
 
     while(1);

@@ -35,7 +35,7 @@ void TIM1_UP_IRQHandler(void) __attribute__((interrupt("WCH-Interrupt-fast")));
  * @fn TIM1_UP_IRQHandler
  * 
  * @brief TIM1_UP_IRQHandlerfunction handles the interrupt for TIM1 and updates the "circle" variable based
- * on the current count and auto-reload values of TIM3.
+ * on the current count and auto-reload values of TIM1.
  */
 void TIM1_UP_IRQHandler()
 {
@@ -55,9 +55,9 @@ void TIM1_UP_IRQHandler()
 }
 
 /*********************************************************************
- * @fn TIM3_Encoder_Init
+ * @fn TIM1_Encoder_Init
  * 
- * @brief function initializes the TIM3 timer as an encoder with specific settings.
+ * @brief function initializes the TIM1 timer as an encoder with specific settings.
  * 
  * @return none
  */

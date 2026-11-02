@@ -89,8 +89,8 @@ const uint8_t  MyManuInfo[] =
 /* Product Information */
 const uint8_t  MyProdInfo[] =
 {
-        0x16, 0x03, 'C', 0, 'H', 0, '1', 0, '0', 0, '3', 0, 'U', 0
-                  , 'D', 0, 'i', 0, 's', 0, 'k', 0,
+        0x12, 0x03, 'C', 0, 'H', 0, '3', 0, '2', 0, 'M', 0, '0', 0
+                  , '3', 0, '0', 0
 };
 
 /* Serial Number Information */

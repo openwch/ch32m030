@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT *******************************
  * File Name          : main.c
  * Author             : WCH
- * Version            : V1.0.0
- * Date               : 2024/09/01
+ * Version            : V1.0.1
+ * Date               : 2026/10/14
  * Description        : Main program body.
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -123,7 +123,6 @@ void EXTI7_0_IRQHandler(void)
 {
     if(EXTI_GetITStatus(EXTI_Line7)!=RESET)
     {
-        printf("EXTI Wake_up\r\n");
         EXTI_ClearITPendingBit(EXTI_Line7);     /* Clear Flag */
     }
 }

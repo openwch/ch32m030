@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT *******************************
  * File Name          : main.c
  * Author             : WCH
- * Version            : V1.0.0
- * Date               : 2024/09/01
+ * Version            : V1.0.1
+ * Date               : 2026/10/15
  * Description        : Main program body.
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -44,7 +44,7 @@ void ExtTrigger_Start_Two_TIM( u16 arr, u16 psc )
 	TIM_CounterModeConfig( TIM2, TIM_CounterMode_Up );
 
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD;
 	GPIO_Init( GPIOC, &GPIO_InitStructure);
 
 	TIM_TimeBaseInitStructure.TIM_Period = arr;
@@ -57,7 +57,7 @@ void ExtTrigger_Start_Two_TIM( u16 arr, u16 psc )
 	TIM_ICInitStructure.TIM_Channel = TIM_Channel_1;
 	TIM_ICInitStructure.TIM_ICPrescaler = TIM_ICPSC_DIV1;
 	TIM_ICInitStructure.TIM_ICFilter = 0x00;
-	TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_BothEdge;
+	TIM_ICInitStructure.TIM_ICPolarity = TIM_ICPolarity_Rising;
 	TIM_ICInitStructure.TIM_ICSelection = TIM_ICSelection_DirectTI;
 	TIM_ICInit( TIM1, &TIM_ICInitStructure );
 

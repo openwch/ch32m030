@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT  *******************************
  * File Name          : ch32m030_flash.c
  * Author             : WCH
- * Version            : V1.0.3
- * Date               : 2025/06/16
+ * Version            : V1.0.5
+ * Date               : 2026/10/18
  * Description        : This file provides all the FLASH firmware functions.
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -752,7 +752,7 @@ void FLASH_ErasePage_Fast(uint32_t Page_Address)
  */
 void FLASH_ProgramPage_Fast(uint32_t Page_Address)
 {
-    if(((Page_Address >= ValidAddrStart) && (Page_Address < ValidAddrEnd)) || (Page_Address = OB_BASE))
+    if(((Page_Address >= ValidAddrStart) && (Page_Address < ValidAddrEnd)) || (Page_Address == OB_BASE))
     {
         FLASH->CTLR |= CR_PAGE_PG;
         FLASH->ADDR = Page_Address;
@@ -815,6 +815,7 @@ static void ROM_ERASE(uint32_t StartAddr, uint32_t Cnt, uint32_t Erase_Size)
  *
  * @param   StartAddr - Erases Flash start address(StartAddr%128 == 0).
  *          Length - Erases Flash start Length(Length%128 == 0).
+ *          Recommended for FLASH erasing.
  *
  * @return  FLASH Status - The returned value can be: FLASH_ADR_RANGE_ERROR,
  *        FLASH_ALIGN_ERROR, FLASH_OP_RANGE_ERROR or FLASH_COMPLETE.
@@ -830,7 +831,7 @@ FLASH_Status FLASH_ROM_ERASE( uint32_t StartAddr, uint32_t Length )
         return FLASH_ADR_RANGE_ERROR;
     }
 
-    if((StartAddr + Length) > ValidAddrEnd)
+    if(Length > (ValidAddrEnd - StartAddr))
     {
         return FLASH_OP_RANGE_ERROR;
     }
@@ -919,6 +920,7 @@ FLASH_Status FLASH_ROM_ERASE( uint32_t StartAddr, uint32_t Length )
  * @param   StartAddr - Writes Flash start address(StartAddr%128 == 0).
  *          Length - Writes Flash start Length(Length%128 == 0).
  *          pbuf - Writes Flash value buffer.
+ *          Recommended for FLASH programming.
  *
  * @return  FLASH Status - The returned value can be: FLASH_ADR_RANGE_ERROR,
  *        FLASH_ALIGN_ERROR, FLASH_OP_RANGE_ERROR or FLASH_COMPLETE.
@@ -935,7 +937,7 @@ FLASH_Status FLASH_ROM_WRITE( uint32_t StartAddr, uint32_t *pbuf, uint32_t Lengt
         return FLASH_ADR_RANGE_ERROR;
     }
 
-    if((StartAddr + Length) > ValidAddrEnd)
+    if(Length > (ValidAddrEnd - StartAddr))
     {
         return FLASH_OP_RANGE_ERROR;
     }
@@ -1005,7 +1007,7 @@ void FLASH_ECCERR_ITCmd(FunctionalState NewState)
     }
     else
     {
-        RCC->CTLR &= ~(1<<20);
+        FLASH->CTLR &= ~(1<<20);
     }
 }
 
@@ -1026,7 +1028,7 @@ void FLASH_ECCERR_Recovery_SetErrFlagCmd(FunctionalState NewState)
     }
     else
     {
-        RCC->CTLR &= ~(1<<21);
+        FLASH->CTLR &= ~(1<<21);
     }
 }
 

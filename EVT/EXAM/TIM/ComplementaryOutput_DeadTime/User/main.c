@@ -75,9 +75,9 @@ void TIM1_Dead_Time_Init(u16 arr, u16 psc, u16 ccp)
     TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
     TIM_OCInitStructure.TIM_OutputNState = TIM_OutputNState_Enable;
     TIM_OCInitStructure.TIM_Pulse = ccp;
-    TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_Low;
-    TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_Low;
-    TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Set;
+    TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
+    TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_High;
+    TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Reset;
     TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCNIdleState_Reset;
     TIM_OC1Init(TIM1, &TIM_OCInitStructure);
 
@@ -148,8 +148,8 @@ void TIM2_Dead_Time_Init(u16 arr, u16 psc, u16 ccp)
     TIM_OCInitStructure.TIM_OutputNState=TIM_OutputNState_Enable;
     TIM_OCInitStructure.TIM_Pulse = ccp;
     TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_High;
-    TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_Low;
-    TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Set;
+    TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_High;
+    TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Reset;
     TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCNIdleState_Reset;
     TIM_OC1Init( TIM2, &TIM_OCInitStructure );
     TIM_OC2Init( TIM2, &TIM_OCInitStructure );
@@ -244,14 +244,13 @@ int main(void)
 #else
     USART_Printf_Init(115200);
 #endif
-    SystemCoreClockUpdate();
-    USART_Printf_Init(115200);
+
     printf("SystemClk:%d\r\n", SystemCoreClock);
     printf( "ChipID:%08x\r\n", DBGMCU_GetCHIPID() );
 
 #if (PWM_MODE == PWM_TIM1)
 
-    TIM1_Dead_Time_Init(100-1, 7200 - 1, 50);
+    TIM1_Dead_Time_Init(100-1, 72 - 1, 50);
 
 #elif (PWM_MODE == PWM_TIM2)
 

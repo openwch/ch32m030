@@ -25,6 +25,7 @@
 #include "ch32m030_spi.h"
 #include "ch32m030_tim.h"
 #include "ch32m030_uart.h"
+#include "ch32m030_usbpd.h"
 #include "ch32m030_wwdg.h"
 #include "ch32m030_usb.h"
 #endif /* __CH32M030_CONF_H */

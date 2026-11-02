@@ -1,9 +1,9 @@
 ;/********************************** (C) COPYRIGHT *******************************
 ;* File Name          : startup_ch32m030.s
 ;* Author             : WCH
-;* Version            : V1.0.1
-;* Date               : 2025/06/04
-;* Description        : CH32M030 vector table for eclipse toolchain.
+;* Version            : V1.0.2
+;* Date               : 2025/12/15
+;* Description        : CH32M030 StartUp File.
 ;*********************************************************************************
 ;* Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
 ;* Attention: This software (modified or not) and binary are used for 
@@ -156,12 +156,25 @@ handle_reset:
 .option	pop 
 1:
 	la sp, _eusrstack 
+
 /* Load highcode code  section from flash to RAM */
 2:
     la a0, _highcode_lma
     la a1, _highcode_vma_start
     la a2, _highcode_vma_end
     bgeu a1, a2, 2f
+1:
+	lw t0, (a0)
+	sw t0, (a1)
+	addi a0, a0, 4
+	addi a1, a1, 4
+	bltu a1, a2, 1b
+2:
+/* Load data section from flash to RAM */
+	la a0, _data_lma
+	la a1, _data_vma
+	la a2, _edata
+	bgeu a1, a2, 2f
 1:
 	lw t0, (a0)
 	sw t0, (a1)
@@ -179,7 +192,7 @@ handle_reset:
 	bltu a0, a1, 1b
 2:
 /* Enabale MIE mapping and prefetch */
-    li t0, 0x21
+    li t0, 0x25
     csrw 0xbc0, t0
 /* Enable interrupt nesting and hardware stack */
 	li t0, 0x3

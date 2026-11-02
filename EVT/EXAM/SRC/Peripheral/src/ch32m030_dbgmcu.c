@@ -93,6 +93,7 @@ void DBGMCU_Config(uint32_t DBGMCU_Periph, FunctionalState NewState)
  *            CH32M030K8U -0x03B20800
  *            CH32M030C8U3-0x03B30800
  *            CH32M030G8R -0x03BB0800
+ *            CH32M030C9U7-0x03B90800
  */
 uint32_t DBGMCU_GetCHIPID( void )
 {

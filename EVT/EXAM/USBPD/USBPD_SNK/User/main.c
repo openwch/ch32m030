@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT *******************************
  * File Name          : main.c
  * Author             : WCH
- * Version            : V1.0.2
- * Date               : 2025/09/19
+ * Version            : V1.0.3
+ * Date               : 2026/10/16
  * Description        : Main program body.
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -23,7 +23,7 @@
  * There is no integrated 5.1K pull-down inside CC in CH32M030C8T and CH32M030G8R
  * Make sure the hardware circuit CC pin is externally connected to 5.1 K pull-down resistance
  * CC_PD is only for status differentiation,
- * bit write 1 means SNK mode, write 0 means SCR mode
+ * bit write 1 means SNK mode, write 0 means SRC mode
  *
  * Modify "PDO_Request( PDO_INDEX_1 )" to modify the request voltage.
  *
@@ -41,7 +41,6 @@
 void TIM1_UP_IRQHandler(void) __attribute__((interrupt("WCH-Interrupt-fast")));
 
 volatile UINT8  Tim_Ms_Cnt = 0x00;
-UINT8 PD_TX_BUF[30];
 /*********************************************************************
  * @fn      TIM1_Init
  *

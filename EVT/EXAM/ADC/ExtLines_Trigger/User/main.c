@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT *******************************
  * File Name          : main.c
  * Author             : WCH
- * Version            : V1.0.0
- * Date               : 2024/09/01
+ * Version            : V1.0.1
+ * Date               : 2026/10/16
  * Description        : Main program body.
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -25,7 +25,9 @@
 #include "debug.h"
 
 /* Global Variable */
-
+vs16 Calibration_Val = 0;
+vu8 IntResponse = 0;
+vu16 ADC_val;
 /*********************************************************************
  * @fn      ADC_Function_Init
  *
@@ -121,7 +123,15 @@ int main(void)
     EXTI_Event_Init();
     ADC_Function_Init();
 
-    while(1);
+    while(1)
+    {
+        if(IntResponse == 1)
+        {
+           printf("ADC Extline trigger conversion...\r\n"); 
+           printf("JADC%04d\r\n", ADC_val);
+           IntResponse = 0;
+        }
+    }
 }
 
 void ADC_IRQHandler(void) __attribute__((interrupt("WCH-Interrupt-fast")));
@@ -135,13 +145,11 @@ void ADC_IRQHandler(void) __attribute__((interrupt("WCH-Interrupt-fast")));
  */
 void ADC_IRQHandler(void)
 {
-    u16 ADC_val;
 
     if(ADC_GetITStatus(ADC1, ADC_IT_EOC))
     {
-        printf("ADC Extline trigger conversion...\r\n");
-        ADC_val = ADC_GetConversionValue(ADC1);
-        printf("ADC-%04d\r\n", ADC_val);
+        IntResponse = 1;
+        ADC_val = ADC_GetInjectedConversionValue(ADC1, ADC_InjectedChannel_1);
     }
 
     ADC_ClearITPendingBit(ADC1, ADC_IT_EOC);

@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT *******************************
  * File Name          : main.c
  * Author             : WCH
- * Version            : V1.0.0
- * Date               : 2024/09/01
+ * Version            : V1.0.1
+ * Date               : 2026/10/14
  * Description        : Main program body.
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -36,6 +36,7 @@
 //#define STANDBY_WAKEUP_MODE     WAKEUP_MODE_NO_AWU
 #define STANDBY_WAKEUP_MODE     WAKEUP_MODE_AWU
 
+#define LSI_READY_TIMEOUT   200U
 /*********************************************************************
  * @fn      EXTI_INT_INIT
  *
@@ -150,7 +151,7 @@ int main(void)
 #else
     USART_Printf_Init(115200);
 #endif
-    printf("SystemClk:%d\r\n", SystemCoreClock);
+    printf("SystemClk:%u\r\n", SystemCoreClock);
     printf("ChipID:%08x\r\n", DBGMCU_GetCHIPID());
 
 #if(STANDBY_WAKEUP_MODE == WAKEUP_MODE_NO_AWU)
@@ -159,7 +160,15 @@ int main(void)
     printf("Standby Mode AWU Test\r\n");
     RCC_PB1PeriphClockCmd(RCC_PB1Periph_PWR, ENABLE);
     RCC_LSICmd(ENABLE);
-    while(RCC_GetFlagStatus(RCC_FLAG_LSIRDY) == RESET);
+    uint32_t lsi_timeout = LSI_READY_TIMEOUT;
+    while((RCC_GetFlagStatus(RCC_FLAG_LSIRDY) == RESET) && (lsi_timeout-- != 0U))
+    {
+        Delay_Ms(20);
+    }
+    if(RCC_GetFlagStatus(RCC_FLAG_LSIRDY) == RESET)
+    {
+        printf("LSI not ready, timeout!\r\n");             
+    }
     PWR_AWU_SetWindowValue(0xF);
     PWR_AutoWakeUpCmd(ENABLE);
 #endif
@@ -196,7 +205,6 @@ void AWU_IRQHandler(void)
     if(EXTI_GetITStatus(EXTI_Line17)!=RESET)
     {
         SystemInit();
-        printf("\r\nAWU Wake_up\r\n");
         EXTI_ClearITPendingBit(EXTI_Line17);     /* Clear Flag */
         NVIC_DisableIRQ(AWU_IRQn);
     }
@@ -216,7 +224,6 @@ void EXTI7_0_IRQHandler(void)
     if(EXTI_GetITStatus(EXTI_Line7)!=RESET)
     {
         SystemInit();
-        printf("EXTI Wake_up\r\n");
         EXTI_ClearITPendingBit(EXTI_Line7);     /* Clear Flag */
     }
 }

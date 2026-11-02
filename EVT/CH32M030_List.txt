@@ -1,5 +1,5 @@
 
-南京沁恒微电子股份有限公司 2025.01
+南京沁恒微电子股份有限公司 2026.03
 最新资料请到我们的网站上查询
 https://wch.cn
 
@@ -30,7 +30,29 @@ https://wch.cn
   |      |      |      |      |-- TIM_Trigger：定时器触发ADC转换例程
   |      |      |      |-- APPLICATION
   |      |      |      |      |-- SoftUART：I/O口模拟串口例程
-  |      |      |      |      |-- Electric_Fan：电机例程 
+  |      |      |      |      |-- Electric_Fan：
+  |      |      |      |      |      |-- Electric_Fan:电机例程
+  |      |      |      |      |      |-- DOC_SCH: 电机应用原理图及说明
+  |      |      |      |      |-- PD：
+  |      |      |      |      |      |-- Common: 
+  |      |      |      |      |      |      |-- Debug: Debug库
+  |      |      |      |      |      |      |-- DOC_SCH:PD应用原理图及说明
+  |      |      |      |      |      |      |-- USBBB: USB库
+  |      |      |      |      |      |      |-- USBPD: PD库 
+  |      |      |      |      |      |-- USBPD_DRP：  
+  |      |      |      |      |      |      |-- DRP_PRSwap：Port1做SNK，Port0是DRP。后接Port1发PRSwap，发送5V 、9V PDO档位。先接Port1，建立PD，请求5V PDO档位
+  |      |      |      |      |      |      |-- DRP_SPR_Passthrough：Port0握手SNK后发送Port1适配器的SrcCap，展示PDO处理过程
+  |      |      |      |      |      |-- USBPD_SNK：  
+  |      |      |      |      |      |      |-- SNK_SPR_Request5V：Port0握手SRC，串口显示收到的Srccap，并申请5V PDO档位
+  |      |      |      |      |      |      |-- SNK_EPR_Request28V：Port0握手SRC，若支持EPR，申请进入EPR模式，握手28V档位
+  |      |      |      |      |      |      |-- SNK_GetSrcCapabilities：Port0 PD建立后，发送GetSrccap消息获取SRC的供电消息能力
+  |      |      |      |      |      |      |-- SNK_SendVdmIdentity：Port0 PD建立后发送VDM Ident消息获取SRC VDM信息
+  |      |      |      |      |      |      |-- SNK_ADC_NTC：外接NTC电阻，ADC采样获取温度
+  |      |      |      |      |      |-- USBPD_SRC：  
+  |      |      |      |      |      |      |-- SRC_Vconn_TxSrcCap：Port0握手SNK，打开Vconn供电获取Emk信息后发送5、9V的SrcCap
+  |      |      |      |      |      |      |-- SRC_DRSwap_Billboard：Port0 PD建立后，发送DRSwap消息，枚举USB Billboard指示无DP能力弹窗
+  |      |      |      |      |      |      |-- SRC_GetSinkCap：Port0 PD建立后，发送GetSinkCap消息获取SNK的供电消息能力
+  |      |      |      |      |      |      |-- SRC_SPR_Request_IsinkVoltChange：ISINK，Port0握手SNK，根据SNK的Request消息进行调压，建立PD通信
   |      |      |      |-- DMA
   |      |      |      |      |-- DMA_MEM2MEM：储存器到储存器模式例程
   |      |      |      |      |-- DMA_MEM2PERIP：储存器到外设模式、外设到储存器模式例程见各外设子例程

@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT  *******************************
  * File Name          : ch32m030_opa.h
  * Author             : WCH
- * Version            : V1.0.2
- * Date               : 2025/01/13
+ * Version            : V1.0.3
+ * Date               : 2026/10/18
  * Description        : This file contains all the functions prototypes for the
  *                      OPA firmware library.
  *********************************************************************************
@@ -434,7 +434,7 @@ typedef struct
 #define CMP1_OUT                  (uint32_t)0x00000001
 #define CMP1_OUT_FILT             (uint32_t)0x00000002
 #define CMP2_OUT                  (uint32_t)0x00000100
-#define CMP2_OUT_FILT             (uint32_t)0x00000202
+#define CMP2_OUT_FILT             (uint32_t)0x00000200
 #define CMP3_OUT                  (uint32_t)0x00010000
 #define CMP3_OUT_FILT             (uint32_t)0x00020000
 

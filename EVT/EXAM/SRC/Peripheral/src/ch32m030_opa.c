@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT  *******************************
  * File Name          : ch32m030_opa.c
  * Author             : WCH
- * Version            : V1.0.2
- * Date               : 2025/01/07
+ * Version            : V1.0.3
+ * Date               : 2026/10/18
  * Description        : This file provides all the OPA firmware functions.
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -380,8 +380,8 @@ void CMP3_Init(CMP3_InitTypeDef *CMP3_InitStruct)
     tmp0 |= (CMP3_InitStruct->CMP3_TRG_SRC << 14) | (CMP3_InitStruct->CMP3_TRG_GATE << 17)\
             | (CMP3_InitStruct->CMP3_COM_EN << 19) | (CMP3_InitStruct->CMP3_FILT_EN << 20)\
             | (CMP3_InitStruct->CMP3_FILT_CFG <<21)\
-            | (CMP3_InitStruct->CMP3_BK_EN <<26) | (CMP3_InitStruct->CMP3_INT_EN <<27)\
-            | (CMP3_InitStruct->CMP3_CAP);
+            | (CMP3_InitStruct->CMP3_BK_EN << 26) | (CMP3_InitStruct->CMP3_INT_EN <<27)\
+            | (CMP3_InitStruct->CMP3_CAP <<30);
 
     tmp1 |= (CMP3_InitStruct->CMP3_PSEL << 1) | (CMP3_InitStruct->CMP3_NSEL << 4)\
             | (CMP3_InitStruct->CMP3_HYS << 7) | (CMP3_InitStruct->CMP3_RMID << 9)\

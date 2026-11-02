@@ -1,8 +1,8 @@
 /********************************** (C) COPYRIGHT *******************************
  * File Name          : main.c
  * Author             : WCH
- * Version            : V1.0.2
- * Date               : 2025/01/09
+ * Version            : V1.0.3
+ * Date               : 2026/10/16
  * Description        : Main program body.
  *********************************************************************************
  * Copyright (c) 2021 Nanjing Qinheng Microelectronics Co., Ltd.
@@ -151,7 +151,9 @@ void ADC_IRQHandler(void) __attribute__((interrupt("WCH-Interrupt-fast")));
 void ADC_IRQHandler(void)
 {
     if(ADC_GetITStatus(ADC1, ADC_IT_AVG_OV)){
+        #if 0
         printf( "Enter ADC_AVG_high Interrupt\r\n" );
+        #endif
     }
     ADC_ClearITPendingBit(ADC1, ADC_IT_AVG_OV);
 }
